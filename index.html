@@ -6,17 +6,27 @@
     <title>Phantom - Landing Page</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* General body styling */
+        /* Navbar styling */
         body {
             font-family: Arial, sans-serif;
             color: #fff;
-            background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center fixed;
-            background-size: cover;
+            background: #000; /* Fallback background color */
             margin: 0;
             padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* Navbar styling */
+        /* Video background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Behind content */
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -64,43 +74,36 @@
             justify-content: center;
             height: calc(100vh - 80px);
             text-align: center;
+            color: #000; /* Set text color to black */
             padding-top: 80px;
         }
 
         .hero h1 {
             font-size: 64px;
-            color: black; /* Set text color to black */
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .hero p {
             font-size: 24px;
-            color: black; /* Set text color to black */
             margin-top: 10px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
         }
 
-        /* Button styling */
-        .btn, .btn-help {
+        /* Button styles */
+        .btn {
             padding: 15px 30px;
+            background-size: cover;
             color: #fff;
-            border: 2px solid white;
+            border: 2px solid white; /* White outline */
             border-radius: 5px;
             font-size: 18px;
             margin-top: 30px;
             text-decoration: none;
-            display: inline-block;
-            background-size: cover; /* Make the background image fill the button */
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 200px; /* Set a fixed width */
-            height: 50px; /* Set a fixed height */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transition: box-shadow 0.3s ease;
         }
 
-        .btn:hover, .btn-help:hover {
-            border-color: #f0f0f0;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* Glowing effect */
+        .btn:hover {
+            box-shadow: 0 0 15px white; /* Glowing effect */
         }
 
         /* Overview section styling */
@@ -111,27 +114,12 @@
             color: #fff;
         }
 
-        .overview h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .overview p {
-            font-size: 20px;
-            line-height: 1.5;
-        }
-
         /* Features section styling */
         .features {
             padding: 50px;
             text-align: center;
             background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
-        }
-
-        .features h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
         }
 
         .features .feature-item {
@@ -158,16 +146,6 @@
             color: #fff;
         }
 
-        .credits h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .credits p {
-            font-size: 20px;
-            line-height: 1.5;
-        }
-
         /* Help section styling */
         .help {
             padding: 50px;
@@ -176,13 +154,30 @@
             color: #fff;
         }
 
-        .help h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
+        .help .btn-help {
+            padding: 15px 30px;
+            background-color: #28a745;
+            color: #fff;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            text-decoration: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .help .btn-help:hover {
+            box-shadow: 0 0 15px white;
         }
     </style>
 </head>
 <body>
+
+    <!-- Video Background -->
+    <video autoplay muted loop class="video-background">
+        <source src="https://github.com/localgoth/localgoth.github.io/blob/main/src/Moving%20White%20Particles%20Overlay%20For%20Edit%20%5B4K%5D.mp4?raw=true" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <!-- Navbar -->
     <header>
@@ -201,7 +196,7 @@
     <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security.</p>
-        <a href="https://E-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get your key</a>
+        <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your key</a>
     </section>
 
     <!-- Overview Section -->
@@ -240,7 +235,7 @@
     <!-- Help Section -->
     <section class="help" id="support">
         <h2>Need Help?</h2>
-        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Join our community server!</a>
+        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help">Join our community server!</a>
     </section>
 
 </body>
