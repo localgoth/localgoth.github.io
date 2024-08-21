@@ -81,16 +81,16 @@
             color: #fff;
             cursor: pointer;
             position: absolute;
-            left: 50%; /* Center horizontally */
+            left: 55%; /* Move slightly to the right */
             transform: translateX(-50%);
         }
 
         .dropdown-menu {
             display: none;
-            position: absolute;
-            top: 60px; /* Adjust position */
-            right: 0;
-            width: 200px;
+            position: fixed; /* Fixed so it stays in place while scrolling */
+            top: 60px; /* Just below the navbar */
+            right: 10px;
+            width: 250px; /* Increased width */
             background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -105,6 +105,7 @@
             font-size: 18px;
             font-weight: 500;
             margin: 15px 0;
+            text-shadow: 0 0 5px white; /* Glowing effect */
         }
 
         .dropdown-menu a:hover {
@@ -251,55 +252,54 @@
             <ul class="menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a></li>
-                <li><a href="#support">Support</a></li>
+                <li><a href="https://discord.gg/ZFWR7ETVBf">Support</a></li>
                 <li><a href="https://E-boys.online/verify">Get Key</a></li>
             </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">&#61;</div> <!-- Changed icon to "=" -->
+            <div class="menu-toggle" onclick="toggleMenu()">&#61;</div> <!-- Moved icon slightly to the right -->
         </div>
         <div class="dropdown-menu" id="dropdown-menu">
             <a href="#home">Home</a>
             <a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a>
-            <a href="#support">Support</a>
+            <a href="https://discord.gg/ZFWR7ETVBf">Support</a>
             <a href="https://E-boys.online/verify">Get Key</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security</p>
-          <a href="https://E-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get Started</a>
+        <a href="https://E-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get key</a>
     </section>
 
     <!-- Overview Section -->
     <section class="overview">
-        <h2>About Phantom</h2>
-        <p>Phantom is a powerful tool designed to protect your Lua scripts from unauthorized access and reverse engineering...</p>
+        <h2>Overview</h2>
+        <p>The ultimate tool for transforming and securing your Lua scripts.<br>
+        Effortlessly obfuscate your code to enhance security and protect your property.<br>
+        Fast, efficient, and easy to use, Phantom is designed to meet your coding needs with advanced obfuscation techniques and a user-friendly interface.</p>
     </section>
 
     <!-- Features Section -->
     <section class="features">
-        <div class="feature-item">
+        <div class="feature-item1">
             <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature1.png?raw=true" alt="Feature 1">
-            <h3>Advanced Obfuscation</h3>
-            <p>State-of-the-art obfuscation techniques to ensure your code remains protected.</p>
+            <p>Advanced Obfuscation</p>
         </div>
-        <div class="feature-item">
+        <div class="feature-item2">
             <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature2.png?raw=true" alt="Feature 2">
-            <h3>User-Friendly Interface</h3>
-            <p>An easy-to-use interface allows you to obfuscate your code quickly and efficiently.</p>
+            <p>Easy and efficient</p>
         </div>
-        <div class="feature-item">
+        <div class="feature-item3">
             <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature3.png?raw=true" alt="Feature 3">
-            <h3>Regular Updates</h3>
-            <p>We continuously improve our obfuscation methods to keep up with the latest threats.</p>
+            <p>Safe and secure to use</p>
         </div>
     </section>
 
     <!-- Credits Section -->
     <section class="credits">
         <h2>Credits</h2>
-        <p>Developed by the Phantom team. Special thanks to our contributors and the Lua community.</p>
+        <p>Developed by ToriTreat and voxlis Special thanks to our contributors and the Lua community.</p>
     </section>
 
     <!-- Help Section -->
