@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom - Main[</title>
+    <title>Phantom - Main</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
 
     <!-- Open Graph meta tags for embedding -->
@@ -57,6 +57,7 @@
         .navbar .menu {
             list-style-type: none;
             display: flex;
+            margin-right: 50px; /* Space for the dropdown */
         }
 
         .navbar .menu li {
@@ -83,11 +84,10 @@
 
         .dropdown-menu {
             display: none;
-            position: fixed;
-            top: 0;
+            position: absolute; /* Change to absolute positioning */
+            top: 60px; /* Adjust position */
             right: 0;
             width: 200px;
-            height: 100vh;
             background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -222,7 +222,8 @@
             }
 
             .dropdown-menu {
-                right: 10px; /* Adjust dropdown position */
+                right: 10px; /* Adjust dropdown position for mobile */
+                top: 60px; /* Ensure it's below the menu toggle */
             }
         }
 
@@ -263,12 +264,12 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
-        <p>Obfuscate your Lua scripts with ease and security.</p>
-        <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your Key</a>
+        <p>Obfuscate your Lua scripts with ease and security</p>
+          <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your key</a>
     </section>
 
     <!-- Overview Section -->
-    <section class="overview">
+    <section class="overview" id="overview">
         <h2>Overview</h2>
         <p>The ultimate tool for transforming and securing your Lua scripts.<br>
         Effortlessly obfuscate your code to enhance security and protect your property.<br>
@@ -276,43 +277,43 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <h2>Features</h2>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon1.png?raw=true" alt="Feature 1">
-            <p>Advanced Obfuscation Techniques</p>
+            <img src="https://example.com/icon1.png" alt="Feature 1">
+            <p>Advanced Encryption</p>
         </div>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon2.png?raw=true" alt="Feature 2">
-            <p>User-Friendly Interface</p>
+            <img src="https://example.com/icon2.png" alt="Feature 2">
+            <p>Enchenced security</p>
         </div>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon3.png?raw=true" alt="Feature 3">
-            <p>High-Level Security Measures</p>
+            <img src="https://example.com/icon3.png" alt="Feature 3">
+            <p>Fast and secure</p>
         </div>
     </section>
 
     <!-- Credits Section -->
-    <section class="credits">
+    <section class="credits" id="credits">
         <h2>Credits</h2>
-        <p>Special thanks to the community and contributors who have helped in the development of Phantom. Your support and feedback have been invaluable.</p>
+        <p>Special thanks to all contributors and supporters of Phantom.</p>
     </section>
 
     <!-- Help Section -->
     <section class="help" id="support">
         <h2>Need Help?</h2>
-        <p>If you encounter any issues or have questions, feel free to reach out to our support team. We're here to assist you!</p>
-        <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Contact support</a>
+        <p>Join our communication server if you have questions!</p>
+          <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Contact support</a>
     </section>
 
-    <!-- JavaScript to handle menu toggle -->
+    <!-- JavaScript for menu toggle -->
     <script>
         function toggleMenu() {
-            var menu = document.getElementById('dropdown-menu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
             } else {
-                menu.style.display = 'block';
+                dropdownMenu.style.display = 'block';
             }
         }
     </script>
