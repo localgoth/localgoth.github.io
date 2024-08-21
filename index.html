@@ -14,17 +14,15 @@
     <meta property="og:type" content="website">
 
     <style>
-        /* Navbar styling */
         body {
             font-family: Arial, sans-serif;
             color: #fff;
-            background: #000; /* Fallback background color */
+            background: #000;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
-        /* Video background */
         .video-background {
             position: fixed;
             top: 0;
@@ -32,7 +30,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1; /* Behind content */
+            z-index: -1;
         }
 
         .navbar {
@@ -57,7 +55,7 @@
         .navbar .menu {
             list-style-type: none;
             display: flex;
-            margin-right: 50px; /* Space for the dropdown */
+            margin-right: 50px;
         }
 
         .navbar .menu li {
@@ -84,15 +82,15 @@
 
         .dropdown-menu {
             display: none;
-            position: absolute; /* Change to absolute positioning */
-            top: 60px; /* Adjust position */
+            position: absolute;
+            top: 60px;
             right: 0;
             width: 200px;
             background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
             z-index: 1001;
-            overflow-y: auto; /* Scroll if menu content overflows */
+            overflow-y: auto;
         }
 
         .dropdown-menu a {
@@ -108,7 +106,6 @@
             text-decoration: underline;
         }
 
-        /* Hero section styling */
         .hero {
             display: flex;
             flex-direction: column;
@@ -116,7 +113,7 @@
             justify-content: center;
             height: calc(100vh - 80px);
             text-align: center;
-            color: #000; /* Set text color to black */
+            color: #000;
             padding-top: 80px;
         }
 
@@ -131,12 +128,11 @@
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
         }
 
-        /* Button styles */
         .btn {
             padding: 15px 30px;
             background-size: cover;
             color: #fff;
-            border: 2px solid white; /* White outline */
+            border: 2px solid white;
             border-radius: 5px;
             font-size: 18px;
             margin-top: 30px;
@@ -145,10 +141,9 @@
         }
 
         .btn:hover {
-            box-shadow: 0 0 15px white; /* Glowing effect */
+            box-shadow: 0 0 15px white;
         }
 
-        /* Overview section styling */
         .overview {
             padding: 50px;
             text-align: center;
@@ -156,7 +151,6 @@
             color: #fff;
         }
 
-        /* Features section styling */
         .features {
             padding: 50px;
             text-align: center;
@@ -180,7 +174,6 @@
             transform: translateX(-10px);
         }
 
-        /* Credits section styling */
         .credits {
             padding: 50px;
             text-align: center;
@@ -188,7 +181,6 @@
             color: #fff;
         }
 
-        /* Help section styling */
         .help {
             padding: 50px;
             text-align: center;
@@ -214,22 +206,22 @@
 
         @media (max-width: 768px) {
             .navbar .menu {
-                display: none; /* Hide menu on small screens */
+                display: none;
             }
 
             .menu-toggle {
-                display: block; /* Show menu toggle icon */
+                display: block;
             }
 
             .dropdown-menu {
-                right: 10px; /* Adjust dropdown position for mobile */
-                top: 60px; /* Ensure it's below the menu toggle */
+                right: 10px;
+                top: 60px;
             }
         }
 
         @media (min-width: 769px) {
             .dropdown-menu {
-                display: none; /* Hide dropdown menu on larger screens */
+                display: none;
             }
         }
     </style>
@@ -265,7 +257,7 @@
     <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security</p>
-          <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your key</a>
+        <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your key</a>
     </section>
 
     <!-- Overview Section -->
@@ -280,41 +272,39 @@
     <section class="features" id="features">
         <h2>Features</h2>
         <div class="feature-item">
-            <img src="https://example.com/icon1.png" alt="Feature 1">
-            <p>Advanced Encryption</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/robust.png?raw=true" alt="Robust Security">
+            <h3>Robust Security</h3>
+            <p>Utilize cutting-edge obfuscation techniques to secure your scripts from unauthorized access.</p>
         </div>
         <div class="feature-item">
-            <img src="https://example.com/icon2.png" alt="Feature 2">
-            <p>Enchenced security</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/easy.png?raw=true" alt="User-Friendly">
+            <h3>User-Friendly</h3>
+            <p>Phantom's intuitive interface ensures that you can obfuscate your Lua scripts quickly and easily.</p>
         </div>
         <div class="feature-item">
-            <img src="https://example.com/icon3.png" alt="Feature 3">
-            <p>Fast and secure</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/fast.png?raw=true" alt="Fast and Efficient">
+            <h3>Fast and Efficient</h3>
+            <p>Experience the speed and efficiency of Phantom's advanced obfuscation process.</p>
         </div>
     </section>
 
     <!-- Credits Section -->
     <section class="credits" id="credits">
         <h2>Credits</h2>
-        <p>Special thanks to all contributors and supporters of Phantom.</p>
+        <p>Thank you everyone who supported us including voxlis a great developer.</p>
     </section>
 
     <!-- Help Section -->
     <section class="help" id="support">
         <h2>Need Help?</h2>
-        <p>Join our communication server if you have questions!</p>
-          <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Contact support</a>
+        <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
+         <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Contact support</a>
     </section>
 
-    <!-- JavaScript for menu toggle -->
     <script>
         function toggleMenu() {
-            const dropdownMenu = document.getElementById('dropdown-menu');
-            if (dropdownMenu.style.display === 'block') {
-                dropdownMenu.style.display = 'none';
-            } else {
-                dropdownMenu.style.display = 'block';
-            }
+            var menu = document.getElementById("dropdown-menu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
     </script>
 </body>
