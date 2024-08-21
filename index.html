@@ -4,186 +4,236 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phantom - Landing Page</title>
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
 
     <!-- Open Graph meta tags for embedding -->
     <meta property="og:title" content="Phantom - The #1 Lua Obfuscator">
-    <meta property="og:description" content="Phantom is a cutting-edge Lua obfuscator designed to protect your scripts from unauthorized access and theft. Secure your code effortlessly with Phantom.">
-    <meta property="og:image" content="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackground.png?raw=true">
+    <meta property="og:description" content="Phantom is a cutting-edge Lua obfuscator designed to secure your scripts from unauthorized access and theft. Protect your code with advanced obfuscation techniques and a user-friendly interface.">
+    <meta property="og:image" content="https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true">
     <meta property="og:url" content="https://E-boys.online/">
     <meta property="og:type" content="website">
 
     <style>
-    /* Navbar styling */
-    body {
-        font-family: Arial, sans-serif;
-        color: #fff;
-        background: #000; /* Fallback background color */
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* Prevent horizontal scroll */
-    }
+        /* Navbar styling */
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background: #000; /* Fallback background color */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
 
-    /* Video background */
-    .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: -1; /* Behind content */
-    }
+        /* Video background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Behind content */
+        }
 
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        background-color: rgba(0, 0, 0, 0.7);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-    }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
 
-    .navbar .logo {
-        font-size: 28px;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-    }
+        .navbar .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
 
-    .navbar .menu {
-        list-style-type: none;
-        display: flex;
-        margin: 0;
-        padding: 0;
-        margin-left: auto; /* Push menu to the left */
-    }
+        .navbar .menu {
+            list-style-type: none;
+            display: flex;
+        }
 
-    .navbar .menu li {
-        margin-left: 15px; /* Adjust spacing between menu items */
-    }
+        .navbar .menu li {
+            margin-left: 20px;
+        }
 
-    .navbar .menu li a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 500;
-        padding: 5px 10px; /* Add padding to menu items */
-    }
+        .navbar .menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+        }
 
-    .navbar .menu li a:hover {
-        text-decoration: underline;
-    }
+        .navbar .menu li a:hover {
+            text-decoration: underline;
+        }
 
-    /* Hero section styling */
-    .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: calc(100vh - 80px);
-        text-align: center;
-        color: #000; /* Set text color to black */
-        padding-top: 80px;
-    }
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
 
-    .hero h1 {
-        font-size: 64px;
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    }
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            overflow-y: auto; /* Scroll if menu content overflows */
+        }
 
-    .hero p {
-        font-size: 24px;
-        margin-top: 10px;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-    }
+        .dropdown-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 15px 0;
+        }
 
-    /* Button styles */
-    .btn {
-        padding: 15px 30px;
-        background-size: cover;
-        color: #fff;
-        border: 2px solid white; /* White outline */
-        border-radius: 5px;
-        font-size: 18px;
-        margin-top: 30px;
-        text-decoration: none;
-        transition: box-shadow 0.3s ease;
-    }
+        .dropdown-menu a:hover {
+            text-decoration: underline;
+        }
 
-    .btn:hover {
-        box-shadow: 0 0 15px white; /* Glowing effect */
-    }
+        /* Hero section styling */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px);
+            text-align: center;
+            color: #000; /* Set text color to black */
+            padding-top: 80px;
+        }
 
-    /* Overview section styling */
-    .overview {
-        padding: 50px;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #fff;
-    }
+        .hero h1 {
+            font-size: 64px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
 
-    /* Features section styling */
-    .features {
-        padding: 50px;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: #fff;
-    }
+        .hero p {
+            font-size: 24px;
+            margin-top: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
 
-    .features .feature-item {
-        display: inline-block;
-        width: 30%;
-        margin: 20px;
-    }
+        /* Button styles */
+        .btn {
+            padding: 15px 30px;
+            background-size: cover;
+            color: #fff;
+            border: 2px solid white; /* White outline */
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 30px;
+            text-decoration: none;
+            transition: box-shadow 0.3s ease;
+        }
 
-    .features .feature-item img {
-        width: 100px;
-        height: 100px;
-        transition: transform 0.3s ease;
-    }
+        .btn:hover {
+            box-shadow: 0 0 15px white; /* Glowing effect */
+        }
 
-    .features .feature-item:hover img {
-        transform: translateX(-10px);
-    }
+        /* Overview section styling */
+        .overview {
+            padding: 50px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
 
-    /* Credits section styling */
-    .credits {
-        padding: 50px;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #fff;
-    }
+        /* Features section styling */
+        .features {
+            padding: 50px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
 
-    /* Help section styling */
-    .help {
-        padding: 50px;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: #fff;
-    }
+        .features .feature-item {
+            display: inline-block;
+            width: 30%;
+            margin: 20px;
+        }
 
-    .help .btn-help {
-        padding: 15px 30px;
-        background-color: #28a745;
-        color: #fff;
-        border: 2px solid white;
-        border-radius: 5px;
-        font-size: 18px;
-        margin-top: 20px;
-        text-decoration: none;
-        transition: box-shadow 0.3s ease;
-    }
+        .features .feature-item img {
+            width: 100px;
+            height: 100px;
+            transition: transform 0.3s ease;
+        }
 
-    .help .btn-help:hover {
-        box-shadow: 0 0 15px white;
-    }
-</style>
+        .features .feature-item:hover img {
+            transform: translateX(-10px);
+        }
 
+        /* Credits section styling */
+        .credits {
+            padding: 50px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+
+        /* Help section styling */
+        .help {
+            padding: 50px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+
+        .help .btn-help {
+            padding: 15px 30px;
+            background-color: #28a745;
+            color: #fff;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            text-decoration: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .help .btn-help:hover {
+            box-shadow: 0 0 15px white;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .menu {
+                display: none; /* Hide menu on small screens */
+            }
+
+            .menu-toggle {
+                display: block; /* Show menu toggle icon */
+            }
+
+            .dropdown-menu {
+                right: 10px; /* Adjust dropdown position */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                display: none; /* Hide dropdown menu on larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
     <!-- Video Background -->
     <video autoplay muted loop class="video-background">
         <source src="https://github.com/localgoth/localgoth.github.io/blob/main/src/Moving%20White%20Particles%20Overlay%20For%20Edit%20%5B4K%5D.mp4?raw=true" type="video/mp4">
@@ -198,8 +248,15 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a></li>
                 <li><a href="#support">Support</a></li>
-                <li><a href="#get-key">Get Key</a></li>
+                <li><a href="https://E-boys.online/verify">Get Key</a></li>
             </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a href="#home">Home</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a>
+            <a href="#support">Support</a>
+            <a href="https://E-boys.online/verify">Get Key</a>
         </div>
     </header>
 
@@ -207,47 +264,57 @@
     <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security.</p>
-        <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your key</a>
+        <a href="https://E-boys.online/verify" class="btn" style="background: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true') no-repeat center center;">Get your Key</a>
     </section>
 
     <!-- Overview Section -->
-    <section class="overview" id="overview">
-        <h2>Discover Phantom</h2>
+    <section class="overview">
+        <h2>Overview</h2>
         <p>The ultimate tool for transforming and securing your Lua scripts.<br>
         Effortlessly obfuscate your code to enhance security and protect your property.<br>
         Fast, efficient, and easy to use, Phantom is designed to meet your coding needs with advanced obfuscation techniques and a user-friendly interface.</p>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="features">
         <h2>Features</h2>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/WrenchAndHammerIcon.png?raw=true" alt="Feature 1">
-            <p>Advanced Obfuscation</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon1.png?raw=true" alt="Feature 1">
+            <p>Advanced Obfuscation Techniques</p>
         </div>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/TransparentShieldNewRevamp.png?raw=true" alt="Feature 2">
-            <p>Enhanced Security</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon2.png?raw=true" alt="Feature 2">
+            <p>User-Friendly Interface</p>
         </div>
         <div class="feature-item">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FastIcon.png?raw=true" alt="Feature 3">
-            <p>Fast and Efficient</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/FeatureIcon3.png?raw=true" alt="Feature 3">
+            <p>High-Level Security Measures</p>
         </div>
     </section>
 
     <!-- Credits Section -->
-    <section class="credits" id="credits">
+    <section class="credits">
         <h2>Credits</h2>
-        <p>ToriTreat<br>Voxlis</p>
-        <p>Discord:<br>Tori839203#0<br>Voxlis_</p>
-        <p>Phantom - The Future of Code Protection</p>
+        <p>Special thanks to the community and contributors who have helped in the development of Phantom. Your support and feedback have been invaluable.</p>
     </section>
 
     <!-- Help Section -->
     <section class="help" id="support">
         <h2>Need Help?</h2>
-        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help">Join our community server!</a>
+        <p>If you encounter any issues or have questions, feel free to reach out to our support team. We're here to assist you!</p>
+        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help">Contact Support</a>
     </section>
 
+    <!-- JavaScript to handle menu toggle -->
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('dropdown-menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
