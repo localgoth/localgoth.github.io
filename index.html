@@ -6,7 +6,7 @@
     <title>Phantom - Landing Page</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Navbar styling */
+        /* General body styling */
         body {
             font-family: Arial, sans-serif;
             color: #fff;
@@ -16,6 +16,7 @@
             padding: 0;
         }
 
+        /* Navbar styling */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -63,34 +64,43 @@
             justify-content: center;
             height: calc(100vh - 80px);
             text-align: center;
-            color: #fff;
             padding-top: 80px;
         }
 
         .hero h1 {
             font-size: 64px;
+            color: black; /* Set text color to black */
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .hero p {
             font-size: 24px;
+            color: black; /* Set text color to black */
             margin-top: 10px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
         }
 
-        .btn {
+        /* Button styling */
+        .btn, .btn-help {
             padding: 15px 30px;
-            background-color: #007BFF;
             color: #fff;
-            border: none;
+            border: 2px solid white;
             border-radius: 5px;
             font-size: 18px;
             margin-top: 30px;
             text-decoration: none;
+            display: inline-block;
+            background-size: cover; /* Make the background image fill the button */
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 200px; /* Set a fixed width */
+            height: 50px; /* Set a fixed height */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
-        .btn:hover {
-            background-color: #0056b3;
+        .btn:hover, .btn-help:hover {
+            border-color: #f0f0f0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* Glowing effect */
         }
 
         /* Overview section styling */
@@ -170,21 +180,6 @@
             font-size: 36px;
             margin-bottom: 20px;
         }
-
-        .help .btn-help {
-            padding: 15px 30px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            margin-top: 20px;
-            text-decoration: none;
-        }
-
-        .help .btn-help:hover {
-            background-color: #218838;
-        }
     </style>
 </head>
 <body>
@@ -206,7 +201,7 @@
     <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security.</p>
-        <a href="https://E-boys.online/verify" class="btn">Get your key</a>
+        <a href="https://E-boys.online/verify" class="btn" style="background-image: url('path-to-your-background-image.png');">Get your key</a>
     </section>
 
     <!-- Overview Section -->
@@ -245,7 +240,7 @@
     <!-- Help Section -->
     <section class="help" id="support">
         <h2>Need Help?</h2>
-        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help">Join our community server!</a>
+        <a href="https://discord.gg/ZFWR7ETVBf" class="btn-help" style="background-image: url('path-to-your-background-image.png');">Join our community server!</a>
     </section>
 
 </body>
