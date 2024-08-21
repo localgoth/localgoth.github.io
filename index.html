@@ -80,22 +80,22 @@
             font-size: 30px;
             color: #fff;
             cursor: pointer;
-            position: absolute;
-            left: 55%; /* Move slightly to the right */
-            transform: translateX(-50%);
+            position: relative;
+            right: -20px; /* Move the icon slightly to the right */
         }
 
         .dropdown-menu {
             display: none;
-            position: fixed; /* Fixed so it stays in place while scrolling */
-            top: 60px; /* Just below the navbar */
-            right: 10px;
+            position: absolute;
+            top: 60px; /* Adjust position */
+            right: 0;
             width: 250px; /* Increased width */
             background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px white; /* Glowing white outlines */
             z-index: 1001;
             overflow-y: auto; /* Scroll if menu content overflows */
+            text-align: center; /* Center text */
         }
 
         .dropdown-menu a {
@@ -105,7 +105,6 @@
             font-size: 18px;
             font-weight: 500;
             margin: 15px 0;
-            text-shadow: 0 0 5px white; /* Glowing effect */
         }
 
         .dropdown-menu a:hover {
@@ -255,7 +254,7 @@
                 <li><a href="https://discord.gg/ZFWR7ETVBf">Support</a></li>
                 <li><a href="https://E-boys.online/verify">Get Key</a></li>
             </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">&#61;</div> <!-- Moved icon slightly to the right -->
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
         </div>
         <div class="dropdown-menu" id="dropdown-menu">
             <a href="#home">Home</a>
@@ -266,10 +265,10 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <h1>Welcome to Phantom</h1>
         <p>Obfuscate your Lua scripts with ease and security</p>
-        <a href="https://E-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get key</a>
+          <a href="https://E-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get Started</a>
     </section>
 
     <!-- Overview Section -->
@@ -282,41 +281,38 @@
 
     <!-- Features Section -->
     <section class="features">
+        <h2>Features</h2>
         <div class="feature-item1">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature1.png?raw=true" alt="Feature 1">
-            <p>Advanced Obfuscation</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature1.png?raw=true" alt="Feature 1">
+            <p>Advanced obfuscation</p>
         </div>
         <div class="feature-item2">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature2.png?raw=true" alt="Feature 2">
-            <p>Easy and efficient</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature2.png?raw=true" alt="Feature 2">
+            <p>Easy and secure</p>
         </div>
         <div class="feature-item3">
-            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomFeature3.png?raw=true" alt="Feature 3">
-            <p>Safe and secure to use</p>
+            <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature3.png?raw=true" alt="Feature 3">
+            <p>Fast processing</p>
         </div>
     </section>
 
     <!-- Credits Section -->
     <section class="credits">
         <h2>Credits</h2>
-        <p>Developed by ToriTreat and voxlis Special thanks to our contributors and the Lua community.</p>
+        <p>Thank you everyone who supported this project, created by ToriTreat and voxlis.</p>
     </section>
 
     <!-- Help Section -->
-    <section class="help" id="support">
+    <section class="help">
         <h2>Need Help?</h2>
-        <p>If you have any questions or need assistance, please visit our support page or contact our team directly.</p>
-        <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Contact support</a>
+        <p>If you have any questions or need assistance, our support team is here to help you.</p>
+        <a href="https://discord.gg/" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Contact support</a>
     </section>
 
     <script>
         function toggleMenu() {
-            var menu = document.getElementById("dropdown-menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
+            var menu = document.getElementById('dropdown-menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
     </script>
 </body>
