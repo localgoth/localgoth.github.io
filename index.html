@@ -35,6 +35,7 @@ object-fit: cover;
 z-index: -1; /* Behind content */
 }
 
+/* Navbar */
 .navbar {
 display: flex;
 justify-content: space-between;
@@ -87,7 +88,6 @@ transform: translateY(-50%); /* Adjust vertical alignment */
 }
 
 .dropdown-menu {
-display: none;
 position: absolute;
 top: 100%; /* Position below the navbar */
 right: 35px; /* Adjust position */
@@ -105,7 +105,6 @@ transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Smo
 }
 
 .dropdown-menu.show {
-display: block;
 opacity: 1;
 visibility: visible;
 transform: translateY(0); /* Move to the final position */
@@ -156,9 +155,9 @@ text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 /* Button styles */
 .btn {
 padding: 15px 30px;
-background-size: cover;
-color: #fff;
+background-color: #28a745; /* Original button background color */
 border: 2px solid white; /* White outline */
+color: #fff;
 border-radius: 5px;
 font-size: 18px;
 margin-top: 30px;
@@ -220,7 +219,7 @@ color: #fff;
 
 .help .btn-help {
 padding: 15px 30px;
-background-color: #28a745;
+background-color: #28a745; /* Original button background color */
 color: #fff;
 border: 2px solid white;
 border-radius: 5px;
@@ -236,104 +235,103 @@ box-shadow: 0 0 15px white;
 
 @media (max-width: 768px) {
 .navbar .menu {
-display: none; /* Hide menu on small screens */
+display: none; /* Hide the menu items for mobile view */
 }
 
 .menu-toggle {
-display: block; /* Show menu toggle icon */
+display: block;
 }
 
 .dropdown-menu {
-right: 10px; /* Adjust dropdown position for mobile */
-top: 60px; /* Ensure it's below the menu toggle */
-}
+display: block;
+width: 100%; /* Full width on mobile */
+right: 0;
+top: 60px; /* Position below the menu toggle */
 }
 
-@media (min-width: 769px) {
-.dropdown-menu {
-display: none; /* Hide dropdown menu on larger screens */
+.dropdown-menu a {
+margin: 10px;
 }
 }
 </style>
 </head>
 <body>
-<!-- Video Background -->
+<!-- Video background -->
 <video autoplay muted loop class="video-background">
 <source src="https://github.com/localgoth/localgoth.github.io/blob/main/src/Moving%20White%20Particles%20Overlay%20For%20Edit%20%5B4K%5D.mp4?raw=true" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
-<header>
 <div class="navbar">
 <div class="logo">Phantom</div>
+<div class="menu-toggle">&#8801;</div>
 <ul class="menu">
 <li><a href="#home">Home</a></li>
 <li><a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a></li>
 <li><a href="https://discord.gg/ZFWR7ETVBf">Support</a></li>
-<li><a href="https://E-boys.online/verify">Get Key</a></li>
+<li><a href="https://e-boys.online/verify">Get Key</a></li>
 </ul>
-<div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
-</div>
-<div class="dropdown-menu" id="dropdown-menu">
+<div class="dropdown-menu">
 <a href="#home">Home</a>
-<a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Authorize</a>
+<a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211">Add to Server</a>
 <a href="https://discord.gg/ZFWR7ETVBf">Support</a>
-<a href="https://E-boys.online/verify">Get Key</a>
+<a href="https://e-boys.online/verify">Get Key</a>
 </div>
-</header>
+</div>
 
-<!-- Hero Section -->
-<section class="hero">
+<!-- Hero section -->
+<div class="hero">
 <h1>Welcome to Phantom</h1>
 <p>Obfuscate your Lua scripts with ease and security</p>
 <a href="https://e-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get key</a>
 </section>
+</div>
 
-<!-- Overview Section -->
-<section class="overview">
+<!-- Overview section -->
+<div class="overview">
 <h2>Overview</h2>
 <p>The ultimate tool for transforming and securing your Lua scripts.<br>
 Effortlessly obfuscate your code to enhance security and protect your property.<br>
 Fast, efficient, and easy to use, Phantom is designed to meet your coding needs with advanced obfuscation techniques and a user-friendly interface.</p>
-</section>
+</div>
 
-<!-- Features Section -->
-<section class="features">
+<!-- Features section -->
+<div class="features">
 <h2>Features</h2>
 <div class="feature-item">
-<img src="https://example.com/feature1.png" alt="Feature 1">
+<img src="path/to/icon1.png" alt="Feature 1">
+<h3>Feature 1</h3>
 <p>Advanced obfuscation</p>
 </div>
 <div class="feature-item">
-<img src="https://example.com/feature2.png" alt="Feature 2">
+<img src="path/to/icon2.png" alt="Feature 2">
+<h3>Feature 2</h3>
 <p>Easy and secure</p>
 </div>
 <div class="feature-item">
-<img src="https://example.com/feature3.png" alt="Feature 3">
+<img src="path/to/icon3.png" alt="Feature 3">
+<h3>Feature 3</h3>
 <p>Fast processing</p>
 </div>
-</section>
+</div>
 
-<!-- Credits Section -->
-<section class="credits">
+<!-- Credits section -->
+<div class="credits">
 <h2>Credits</h2>
-<p>Special thanks to all contributors and supporters who made Phantom possible. Your contributions and feedback are invaluable to us.</p>
-</section>
+<p>Special thanks to...</p>
+</div>
 
-<!-- Help Section -->
-<section class="help">
+<!-- Help section -->
+<div class="help">
 <h2>Need Help?</h2>
-<p>If you need assistance with Phantom or have any questions, feel free to reach out to our support team.</p>
 <a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Contact support</a>
-</section>
-</section>
+</div>
 
 <script>
-function toggleMenu() {
-var menu = document.getElementById('dropdown-menu');
-menu.classList.toggle('show');
-}
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+document.querySelector('.dropdown-menu').classList.toggle('show');
+});
 </script>
 </body>
 </html>
