@@ -183,13 +183,16 @@ color: #fff;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center items horizontally */
 }
 
 .features .feature-item {
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Arrange children in a column */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack image and text vertically */
     align-items: center; /* Center children horizontally */
-    width: 30%;
+    width: 30%; /* Adjust width as needed */
     margin: 20px;
 }
 
