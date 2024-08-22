@@ -38,34 +38,46 @@
             border-radius: 10px;
             text-align: center;
         }
+        .popup.show {
+            display: block;
+        }
+        .task {
+            display: none;
+        }
+        .task.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Checkpoint 2</h1>
-        <div id="popup1" class="popup">Pop-up 1: Loading...</div>
-        <div id="popup2" class="popup" style="display: none;">Pop-up 2: Click to proceed</div>
-        <button class="button" id="proceedButton" style="display: none;" onclick="window.location.href='https://e-boys.online/Verify_Fourth_Checkpoint';">Proceed to Checkpoint 3</button>
+        <button class="button" id="task1Button" onclick="startTask1()">Task 1</button>
+        <button class="button" id="task2Button" style="display: none;" onclick="startTask2()">Task 2</button>
+        <div id="popup1" class="popup">Ad for Task 1: Please wait 15 seconds...</div>
+        <div id="popup2" class="popup" style="display: none;">Ad for Task 2: Please wait 5 seconds...</div>
     </div>
 
     <script>
         function showPopup(popupId, delay) {
             return new Promise(resolve => {
                 setTimeout(() => {
-                    document.getElementById(popupId).style.display = 'block';
+                    document.getElementById(popupId).classList.add('show');
                     resolve();
                 }, delay);
             });
         }
 
-        async function handleCheckpoints() {
-            await showPopup('popup1', 5000); // Show first popup after 5 seconds
-            await showPopup('popup2', 5000); // Show second popup after 5 seconds
-            document.getElementById('proceedButton').style.display = 'block'; // Show proceed button after popups
+        async function startTask1() {
+            document.getElementById('popup1').classList.add('show');
+            await showPopup('popup1', 15000); // Show ad for Task 1 for 15 seconds
+            document.getElementById('task2Button').style.display = 'block'; // Show Task 2 button
         }
 
-        window.onload = function() {
-            handleCheckpoints();
+        async function startTask2() {
+            document.getElementById('popup2').classList.add('show');
+            await showPopup('popup2', 5000); // Show ad for Task 2 for 5 seconds
+            window.location.href = 'https://e-boys.online/Verify_Fourth_Checkpoint'; // Redirect to Checkpoint 3
         }
     </script>
 </body>
