@@ -1,1 +1,72 @@
-Works gee
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint 2</title>
+    <style>
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .popup {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkpoint 2</h1>
+        <div id="popup1" class="popup">Pop-up 1: Loading...</div>
+        <div id="popup2" class="popup" style="display: none;">Pop-up 2: Click to proceed</div>
+        <button class="button" id="proceedButton" style="display: none;" onclick="window.location.href='https://e-boys.online/Verify_Third_Checkpoint';">Proceed to Checkpoint 3</button>
+    </div>
+
+    <script>
+        function showPopup(popupId, delay) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    document.getElementById(popupId).style.display = 'block';
+                    resolve();
+                }, delay);
+            });
+        }
+
+        async function handleCheckpoints() {
+            await showPopup('popup1', 5000); // Show first popup after 5 seconds
+            await showPopup('popup2', 5000); // Show second popup after 5 seconds
+            document.getElementById('proceedButton').style.display = 'block'; // Show proceed button after popups
+        }
+
+        window.onload = function() {
+            handleCheckpoints();
+        }
+    </script>
+</body>
+</html>
