@@ -11,14 +11,19 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: black;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
             font-family: 'Titillium Web', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
-            display: none;
             text-align: center;
-            padding-top: 50px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
         #loading-container {
             position: fixed;
@@ -27,13 +32,38 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: black;
+            background: rgba(0, 0, 0, 0.8);
         }
         #loading-container img {
             max-width: 100px;
         }
-        .breadcrumb, h1, p, .key-display, .key-info {
-            color: white;
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .breadcrumb .arrow {
+            color: #888;
+            margin: 0 5px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .key-display {
+            font-size: 24px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6a00, #ee0979);
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .key-info {
+            font-size: 16px;
+            color: #ff6a00;
         }
     </style>
 </head>
@@ -61,30 +91,26 @@
             const checkpoint1Completed = localStorage.getItem('checkpoint1Completed');
 
             if (!hwid || checkpoint1Completed !== 'true') {
-                // Redirect to the first checkpoint if no HWID is provided or checkpoint 1 wasn't completed
                 window.location.href = 'https://e-boys.online/verify';
             } else {
-                // Display the key
                 const generatedKey = generateKeyFromHWID(hwid);
                 document.getElementById('keyDisplay').textContent = `KEY: ${generatedKey}`;
-                document.getElementById('keyInfo').textContent = 'Use this key to verify your account.';
-                localStorage.removeItem('checkpoint1Completed'); // Clear checkpoint flag
-            }
+                document.getElementById('keyInfo').textContent = 'Use this key to proceed to the next checkpoint.';
 
-            loadingContainer.style.opacity = 1;
-            setTimeout(() => {
-                loadingContainer.style.transition = 'opacity 1s ease';
-                loadingContainer.style.opacity = 0;
+                loadingContainer.style.opacity = 1;
                 setTimeout(() => {
-                    loadingContainer.style.display = 'none';
-                    container.style.display = 'block';
-                }, 1000);
-            }, 2000);
+                    loadingContainer.style.transition = 'opacity 1s ease';
+                    loadingContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        loadingContainer.style.display = 'none';
+                        container.style.display = 'block';
+                    }, 1000);
+                }, 2000);
+            }
         }
 
         function generateKeyFromHWID(hwid) {
-            // Simple key generation logic based on HWID
-            return hwid.split('').reverse().join('').slice(0, 16); // Example: reverse and truncate HWID
+            return btoa(hwid).slice(0, 16).toUpperCase();
         }
     </script>
 </body>
