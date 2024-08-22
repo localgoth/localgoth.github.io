@@ -3,35 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify - Step 1</title>
+    <title>E-boys.online - Verify</title>
+    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/verify.css">
 </head>
 <body>
-    <h1>First Checkpoint</h1>
-    <p>Please complete the tasks via LootLabs to proceed.</p>
-    <button onclick="startTask('https://shortened.url/lootlabs-task')">Start Task 1</button>
+    <div id="loading-container">
+        <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackground.png?raw=true" alt="Loading">
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
+        </div>
+        <h1>Phantom Key Gen</h1>
+        <input type="text" id="userId" placeholder="UserID / Verify Key" />
+        <button id="convertButton" onclick="handleButtonClick()">Get Key</button>
+        <div class="popup-box" id="popupBox">
+            <p>After completing the task, return here to continue.</p>
+            <button onclick="startLootLabsTask()">Start Task 1</button>
+        </div>
+        <div class="key-display" id="keyDisplay"></div>
+        <div class="key-info" id="keyInfo"></div>
+        <div class="discord-link">
+            <p>How to verify:<a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube</a></p>
+        </div>
+    </div>
 
     <script>
-        function startTask(taskUrl) {
+        function startLootLabsTask() {
             const hwid = getHWID();
+            const taskUrl = `https://lootdest.org/s?882ffc43&redirect=https://e-boys.online/verify2?hwid=${hwid}`;
             window.open(taskUrl, '_blank');
-            // Simulate task completion
-            setTimeout(() => {
-                fetch('/check-task', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `hwid=${hwid}&taskCompleted=true`,
-                }).then(response => {
-                    if (response.redirected) {
-                        window.location.href = response.url;
-                    }
-                });
-            }, 15000); // Simulate waiting period for task
         }
 
         function getHWID() {
+            // Simulate HWID for demonstration
             return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
+        }
+
+        function handleButtonClick() {
+            // Existing key generation code
+        }
+
+        function openKeyPopup() {
+            // Existing key popup code
+        }
+
+        window.onload = function() {
+            // Existing onload code
         }
     </script>
 </body>
