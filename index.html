@@ -76,19 +76,21 @@ text-decoration: underline;
 }
 
 .menu-toggle {
-display: none;
+display: block;
 font-size: 30px;
 color: #fff;
 cursor: pointer;
-position: relative;
-right: 34px; /* Adjust this value to move the icon slightly more to the right but not too far */
+position: absolute; /* Ensure the icon is positioned relative to the navbar */
+right: 35px; /* Adjust this value to position the icon correctly */
+top: 50%; /* Center vertically within the navbar */
+transform: translateY(-50%); /* Adjust vertical alignment */
 }
 
 .dropdown-menu {
 display: none;
 position: absolute;
-top: 60px; /* Adjust position */
-right: 0;
+top: 100%; /* Position below the navbar */
+right: 35px; /* Adjust position */
 width: 250px; /* Increased width */
 background-color: rgba(0, 0, 0, 0.9);
 padding: 20px;
@@ -96,6 +98,17 @@ box-shadow: 0 0 10px white; /* Glowing white outlines */
 z-index: 1001;
 overflow-y: auto; /* Scroll if menu content overflows */
 text-align: center; /* Center text */
+opacity: 0; /* Initially hidden */
+visibility: hidden; /* Initially hidden */
+transform: translateY(-20px); /* Start from above */
+transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.dropdown-menu.show {
+display: block;
+opacity: 1;
+visibility: visible;
+transform: translateY(0); /* Move to the final position */
 }
 
 .dropdown-menu a {
@@ -109,6 +122,12 @@ margin: 20px 0;
 
 .dropdown-menu a:hover {
 text-decoration: underline;
+}
+
+/* Remove blue highlight on link click */
+a:focus, a:active {
+outline: none;
+background: transparent;
 }
 
 /* Hero section styling */
@@ -265,10 +284,10 @@ Your browser does not support the video tag.
 </header>
 
 <!-- Hero Section -->
-<section class="hero" id="home">
+<section class="hero">
 <h1>Welcome to Phantom</h1>
 <p>Obfuscate your Lua scripts with ease and security</p>
-<a href="https://discord.com/oauth2/authorize?client_id=1273568705892188211" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get Started</a>
+<a href="https://e-boys.online/verify" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Get key</a>
 </section>
 
 <!-- Overview Section -->
@@ -282,16 +301,16 @@ Fast, efficient, and easy to use, Phantom is designed to meet your coding needs 
 <!-- Features Section -->
 <section class="features">
 <h2>Features</h2>
-<div class="feature-item1">
-<img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature1.png?raw=true" alt="Feature 1">
+<div class="feature-item">
+<img src="https://example.com/feature1.png" alt="Feature 1">
 <p>Advanced obfuscation</p>
 </div>
-<div class="feature-item2">
-<img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature2.png?raw=true" alt="Feature 2">
+<div class="feature-item">
+<img src="https://example.com/feature2.png" alt="Feature 2">
 <p>Easy and secure</p>
 </div>
-<div class="feature-item3">
-<img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/phantomBotIcons/feature3.png?raw=true" alt="Feature 3">
+<div class="feature-item">
+<img src="https://example.com/feature3.png" alt="Feature 3">
 <p>Fast processing</p>
 </div>
 </section>
@@ -299,20 +318,21 @@ Fast, efficient, and easy to use, Phantom is designed to meet your coding needs 
 <!-- Credits Section -->
 <section class="credits">
 <h2>Credits</h2>
-<p>Thank you to everyone who supported this project, created by ToriTreat and voxlis.</p>
+<p>Special thanks to all contributors and supporters who made Phantom possible. Your contributions and feedback are invaluable to us.</p>
 </section>
 
 <!-- Help Section -->
 <section class="help">
 <h2>Need Help?</h2>
-<p>If you have any questions or need assistance, our support team is here to help you.</p>
-<a href="https://discord.gg/" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Contact support</a>
+<p>If you need assistance with Phantom or have any questions, feel free to reach out to our support team.</p>
+<a href="https://discord.gg/ZFWR7ETVBf" class="btn" style="background-image: url('https://github.com/localgoth/localgoth.github.io/blob/main/src/PhantomBotButtonBackgrounds.png?raw=true');">Contact support</a>
+</section>
 </section>
 
 <script>
 function toggleMenu() {
 var menu = document.getElementById('dropdown-menu');
-menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+menu.classList.toggle('show');
 }
 </script>
 </body>
