@@ -179,26 +179,36 @@ color: #fff;
 
 /* Features section styling */
 .features {
-padding: 50px;
-text-align: center;
-background-color: rgba(0, 0, 0, 0.8);
-color: #fff;
+    padding: 50px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
 }
 
 .features .feature-item {
-display: inline-block;
-width: 30%;
-margin: 20px;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center children horizontally */
+    width: 30%;
+    margin: 20px;
 }
 
 .features .feature-item img {
-width: 150px;
-height: 100px;
-transition: transform 0.3s ease;
+    width: 150px; /* Set to desired width */
+    height: 100px; /* Set height to maintain aspect ratio */
+    transition: transform 0.3s ease;
 }
 
 .features .feature-item:hover img {
-transform: translateX(-10px);
+    transform: translateX(-10px);
+}
+
+.features .feature-item h3 {
+    margin-top: 10px; /* Add margin to ensure spacing between image and text */
+}
+
+.features .feature-item p {
+    margin-top: 5px; /* Add margin to ensure spacing between text and description */
 }
 
 /* Credits section styling */
