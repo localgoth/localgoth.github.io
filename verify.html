@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-boys.online - Verify</title>
+    <title>Phantom - Verify</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
 
-    <!-- Open Graph meta tags for embedding -->
     <meta property="og:title" content="Phantom | Key system">
     <meta property="og:description" content="Key system for Phantom. Phantom is a powerful Lua obfuscator designed to protect your scripts from unauthorized access and theft">
     <meta property="og:image" content="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackgroundVerify.png?raw=true">
     <meta property="og:url" content="https://E-boys.online/verify">
     <meta property="og:type" content="website">
 
-    <!-- Include Titillium Web font -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Internal CSS for styling -->
     <style>
         body {
             font-family: 'Titillium Web', sans-serif;
+            color: #fff;
+            background: #000;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #000, #333);
-            color: #fff;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         #loading-container {
@@ -33,107 +34,73 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
             transition: opacity 1s ease;
         }
 
         #loading-container img {
-            width: 200px;
+            width: 150px;
+            height: auto;
         }
 
         .container {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             text-align: center;
-            position: relative;
-            z-index: 1;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            display: none; /* Initially hidden */
         }
 
-        .breadcrumb {
-            margin-bottom: 20px;
-            font-size: 16px;
-            color: #ccc;
-        }
-
-        .breadcrumb .arrow {
-            margin: 0 10px;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        input[type="text"], button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
         }
 
         input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            font-size: 18px;
-            border: 2px solid #555;
-            border-radius: 5px;
-            background: #333;
+            background-color: #222;
             color: #fff;
-            margin-bottom: 20px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: #28a745;
-            outline: none;
+            font-size: 16px;
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
             background-color: #28a745;
             color: #fff;
+            font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
             background-color: #218838;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .popup-box {
             display: none;
-            margin-top: 20px;
             padding: 20px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        .popup-box p {
-            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 5px;
+            margin-top: 20px;
         }
 
         .key-display, .key-info {
-            margin-top: 20px;
+            display: none;
             padding: 20px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            font-size: 18px;
-        }
-
-        .key-info {
-            font-size: 16px;
-            line-height: 1.5;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            margin-top: 20px;
         }
 
         .discord-link {
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .discord-link a {
@@ -146,12 +113,12 @@
         }
 
         @media (max-width: 768px) {
-            input[type="text"] {
-                width: 100%;
+            .container {
+                padding: 10px;
             }
 
-            button {
-                width: 100%;
+            input[type="text"], button {
+                padding: 12px;
             }
         }
     </style>
@@ -165,17 +132,17 @@
         <div class="breadcrumb">
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
         </div>
-        <h1>Phantom Key Generator</h1>
-        <input type="text" id="userId" placeholder="Enter UserID or Verify Key" />
-        <button id="convertButton" onclick="handleButtonClick()">Generate Key</button>
+        <h1>Phantom Key Gen</h1>
+        <input type="text" id="userId" placeholder="UserID / Verify Key" />
+        <button id="convertButton" onclick="handleButtonClick()">Get Key</button>
         <div class="popup-box" id="popupBox">
-            <p>Click the buttons to proceed and view your key.</p>
-            <button onclick="openKeyPopup()">Open Key System [ 1/2 ]</button>
+            <p>After clicking the buttons, pop-ups will appear, and then you can view your key.</p>
+            <button onclick="openKeyPopup()">Keysystem [ 1/3 ]</button>
         </div>
         <div class="key-display" id="keyDisplay"></div>
         <div class="key-info" id="keyInfo"></div>
         <div class="discord-link">
-            <p>How to verify: <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube Tutorial</a></p>
+            <p>How to verify: <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank">YouTube</a></p>
         </div>
     </div>
 
@@ -188,6 +155,7 @@
 
         let generatedKey = '';
         let keyStep = 1;
+        let checkpointStatus = [false, false, false];
 
         function handleButtonClick() {
             const userId = document.getElementById('userId').value;
@@ -210,37 +178,47 @@
             const popupBox = document.getElementById('popupBox');
 
             if (keyStep === 1) {
+                checkpointStatus[0] = true;
                 window.open("https://bloxflip.com/a/intel", '_blank');
-                keyDisplay.textContent = "Keysystem [ 1/2 ]";
-                keyDisplay.style.display = 'block';
-                popupBox.querySelector("button").textContent = "Keysystem [ 2/2 ]";
+                popupBox.querySelector("button").textContent = "Keysystem [ 2/3 ]";
                 keyStep++;
             } else if (keyStep === 2) {
+                checkpointStatus[1] = true;
                 window.open("https://blox.game/rancid-clock", '_blank');
+                popupBox.querySelector("button").textContent = "Keysystem [ 3/3 ]";
+                keyStep++;
+            } else if (keyStep === 3) {
+                checkpointStatus[2] = true;
                 keyDisplay.textContent = `KEY: ${generatedKey}`;
                 keyInfo.textContent = `1. /getcode (MUST DO THIS FIRST BEFORE GETTING A KEY)\n` +
                                       `2. Get Key from the current site\n` +
                                       `3. /verify ${generatedKey}`;
                 keyDisplay.style.display = 'block';
                 keyInfo.style.display = 'block';
-                popupBox.remove(); // Remove the popup box from the DOM
+                popupBox.remove();
+            }
+        }
+
+        function checkUrlAccess() {
+            if (!checkpointStatus.every(status => status)) {
+                document.body.innerHTML = '<h1>An error has occurred. Please refresh your page.</h1>';
+                window.location.href = 'https://E-boys.online/verify';
             }
         }
 
         window.onload = function() {
             const loadingContainer = document.getElementById('loading-container');
-
-            // Fade in the loading image
             loadingContainer.style.opacity = 1;
 
-            // Wait for 3 seconds, then fade out and show the main content
             setTimeout(() => {
                 loadingContainer.style.opacity = 0;
                 setTimeout(() => {
                     loadingContainer.style.display = 'none';
                     document.querySelector('.container').style.display = 'block';
-                }, 1000); // Duration of fade-out effect
+                }, 1000);
             }, 3000);
+
+            checkUrlAccess();
         }
     </script>
 </body>
