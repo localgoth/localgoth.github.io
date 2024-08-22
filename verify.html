@@ -11,14 +11,19 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: black;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
             font-family: 'Titillium Web', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
-            display: none;
             text-align: center;
-            padding-top: 50px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
         #loading-container {
             position: fixed;
@@ -27,13 +32,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: black;
+            background: rgba(0, 0, 0, 0.8);
         }
         #loading-container img {
             max-width: 100px;
         }
-        .breadcrumb, h1, p, input, button {
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .breadcrumb .arrow {
+            color: #888;
+            margin: 0 5px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #ff6a00, #ee0979);
             color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #ff6a00, #ff2a6d);
+        }
+        .discord-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .discord-link a {
+            color: #ff6a00;
+            text-decoration: none;
+            border-bottom: 1px solid #ff6a00;
+            transition: color 0.3s ease;
+        }
+        .discord-link a:hover {
+            color: #ff2a6d;
+            border-bottom: 1px solid #ff2a6d;
         }
     </style>
 </head>
@@ -49,21 +92,19 @@
         <h1>Phantom Key Gen</h1>
         <button onclick="startLootLabsTask()">Start Task 1</button>
         <div class="discord-link">
-            <p>How to verify:<a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube</a></p>
+            <p>How to verify: <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank">Watch on YouTube</a></p>
         </div>
     </div>
 
     <script>
         function startLootLabsTask() {
             const hwid = getHWID();
-            // Save checkpoint completion in localStorage
             localStorage.setItem('checkpoint1Completed', 'true');
             const taskUrl = `https://lootdest.org/s?882ffc43&redirect=https://e-boys.online/verify2?hwid=${hwid}`;
             window.open(taskUrl, '_blank');
         }
 
         function getHWID() {
-            // Simulate HWID for demonstration
             return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
         }
 
