@@ -3,81 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkpoint 1</title>
-    <style>
-        body {
-            font-family: 'Titillium Web', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #000;
-            color: #fff;
-            text-align: center;
-        }
-        .container {
-            margin: 20px;
-        }
-        .button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        .popup {
-            display: none;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .popup.show {
-            display: block;
-        }
-        .task {
-            display: none;
-        }
-        .task.show {
-            display: block;
-        }
-    </style>
+    <title>Verify - Step 2</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Checkpoint 1</h1>
-        <button class="button" id="task1Button" onclick="startTask1()">Task 1</button>
-        <button class="button" id="task2Button" style="display: none;" onclick="startTask2()">Task 2</button>
-        <div id="popup1" class="popup">Ad for Task 1: Please wait 15 seconds...</div>
-        <div id="popup2" class="popup" style="display: none;">Ad for Task 2: Please wait 5 seconds...</div>
-    </div>
+    <h1>Second Checkpoint</h1>
+    <p>Please complete the following task.</p>
+    <button onclick="startTask('https://shortened.url/lootlabs-task2')">Start Task 2</button>
 
     <script>
-        function showPopup(popupId, delay) {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    document.getElementById(popupId).classList.add('show');
-                    resolve();
-                }, delay);
-            });
+        function startTask(taskUrl) {
+            const hwid = getHWID();
+            window.open(taskUrl, '_blank');
+            // Simulate task completion
+            setTimeout(() => {
+                fetch('/check-task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `hwid=${hwid}&taskCompleted=true`,
+                }).then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    }
+                });
+            }, 5000); // Simulate waiting period for task
         }
 
-        async function startTask1() {
-            document.getElementById('popup1').classList.add('show');
-            await showPopup('popup1', 15000); // Show ad for Task 1 for 15 seconds
-            document.getElementById('task2Button').style.display = 'block'; // Show Task 2 button
-        }
-
-        async function startTask2() {
-            document.getElementById('popup2').classList.add('show');
-            await showPopup('popup2', 5000); // Show ad for Task 2 for 5 seconds
-            window.location.href = 'https://e-boys.online/Verify_Third_Checkpoint'; // Redirect to Checkpoint 2
+        function getHWID() {
+            return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
         }
     </script>
 </body>
