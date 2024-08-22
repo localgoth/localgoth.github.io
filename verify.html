@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-boys.online - Verify</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
-    
+
     <!-- Open Graph meta tags for embedding -->
     <meta property="og:title" content="Phantom | Key system">
     <meta property="og:description" content="Key system for Phantom. Phantom is a powerful Lua obfuscator designed to protect your scripts from unauthorized access and theft">
@@ -16,104 +16,8 @@
     <!-- Include Titillium Web font -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Inline CSS for simplicity -->
-    <style>
-        /* General styling */
-        body {
-            font-family: 'Titillium Web', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: #000;
-            color: #fff;
-        }
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-        /* Container styling */
-        .container {
-            display: none; /* Hidden until loading animation finishes */
-            text-align: center;
-            padding: 20px;
-        }
-        .breadcrumb {
-            margin-bottom: 20px;
-        }
-        .breadcrumb span {
-            color: #888;
-        }
-        .breadcrumb .white {
-            color: #fff;
-        }
-        /* Key generator styling */
-        input[type="text"], button {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
-            margin: 10px auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .popup-box {
-            display: none;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #fff;
-            margin: 20px auto;
-            max-width: 400px;
-        }
-        .popup-box p {
-            margin: 0 0 10px;
-        }
-        .popup-box button {
-            background-color: #007bff;
-            border: none;
-        }
-        .popup-box button:hover {
-            background-color: #0056b3;
-        }
-        .key-display, .key-info {
-            display: none;
-            margin: 20px auto;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .discord-link {
-            margin: 20px auto;
-            max-width: 400px;
-        }
-        .discord-link a {
-            color: #1e90ff;
-        }
-        .discord-link a:hover {
-            text-decoration: underline;
-        }
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            input[type="text"], button {
-                width: calc(100% - 20px); /* Full width minus padding */
-            }
-        }
-    </style>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="CSS/verify.css">
 </head>
 <body>
     <div id="loading-container">
@@ -129,7 +33,7 @@
         <button id="convertButton" onclick="handleButtonClick()">Get Key</button>
         <div class="popup-box" id="popupBox">
             <p>After clicking the buttons, pop-ups will appear, and then you can view your key.</p>
-            <button onclick="openKeyPopup()">Keysystem [ 1/3 ]</button>
+            <button onclick="openKeyPopup()">Keysystem [ 1/2 ]</button>
         </div>
         <div class="key-display" id="keyDisplay"></div>
         <div class="key-info" id="keyInfo"></div>
@@ -152,11 +56,6 @@
             const userId = document.getElementById('userId').value;
             const popupBox = document.getElementById('popupBox');
 
-            if (userId === '') {
-                alert('Please enter a UserID or Verify Key.');
-                return;
-            }
-
             let result = '';
             for (const digit of userId) {
                 if (digitToChar[digit] !== undefined) {
@@ -174,19 +73,13 @@
             const popupBox = document.getElementById('popupBox');
 
             if (keyStep === 1) {
-                window.location.href = "checkpoint1.html";
-                keyDisplay.textContent = "Keysystem [ 1/3 ]";
+                window.open("https://bloxflip.com/a/intel", '_blank');
+                keyDisplay.textContent = "Keysystem [ 1/2 ]";
                 keyDisplay.style.display = 'block';
-                popupBox.querySelector("button").textContent = "Keysystem [ 2/3 ]";
+                popupBox.querySelector("button").textContent = "Keysystem [ 2/2 ]";
                 keyStep++;
             } else if (keyStep === 2) {
-                window.location.href = "checkpoint2.html";
-                keyDisplay.textContent = "Keysystem [ 2/3 ]";
-                keyDisplay.style.display = 'block';
-                popupBox.querySelector("button").textContent = "Keysystem [ 3/3 ]";
-                keyStep++;
-            } else if (keyStep === 3) {
-                window.location.href = "checkpoint3.html";
+                window.open("https://blox.game/rancid-clock", '_blank');
                 keyDisplay.textContent = `KEY: ${generatedKey}`;
                 keyInfo.textContent = `1. /getcode (MUST DO THIS FIRST BEFORE GETTING A KEY)\n` +
                                       `2. Get Key from the current site\n` +
@@ -211,19 +104,6 @@
                     document.querySelector('.container').style.display = 'block';
                 }, 1000); // Duration of fade-out effect
             }, 3000);
-
-            // Check URL for direct access
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('checkpoint')) {
-                const checkpoint = parseInt(urlParams.get('checkpoint'), 10);
-                if (checkpoint < 1 || checkpoint > 3) {
-                    alert('An error has occurred. Please refresh your page.');
-                    window.location.href = 'checkpoint1.html';
-                }
-            } else {
-                alert('An error has occurred. Please refresh your page.');
-                window.location.href = 'checkpoint1.html';
-            }
         }
     </script>
 </body>
