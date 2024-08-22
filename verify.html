@@ -47,14 +47,7 @@
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
         </div>
         <h1>Phantom Key Gen</h1>
-        <input type="text" id="userId" placeholder="UserID / Verify Key" />
-        <button id="convertButton" onclick="handleButtonClick()">Get Key</button>
-        <div class="popup-box" id="popupBox">
-            <p>After completing the task, return here to continue.</p>
-            <button onclick="startLootLabsTask()">Start Task 1</button>
-        </div>
-        <div class="key-display" id="keyDisplay"></div>
-        <div class="key-info" id="keyInfo"></div>
+        <button onclick="startLootLabsTask()">Start Task 1</button>
         <div class="discord-link">
             <p>How to verify:<a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube</a></p>
         </div>
@@ -63,6 +56,8 @@
     <script>
         function startLootLabsTask() {
             const hwid = getHWID();
+            // Save checkpoint completion in localStorage
+            localStorage.setItem('checkpoint1Completed', 'true');
             const taskUrl = `https://lootdest.org/s?882ffc43&redirect=https://e-boys.online/verify2?hwid=${hwid}`;
             window.open(taskUrl, '_blank');
         }
@@ -72,19 +67,10 @@
             return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
         }
 
-        function handleButtonClick() {
-            // Placeholder for your key generation logic
-        }
-
-        function openKeyPopup() {
-            // Placeholder for popup logic
-        }
-
         window.onload = function() {
             const loadingContainer = document.getElementById('loading-container');
             const container = document.querySelector('.container');
 
-            // Fade out loading screen and display content
             loadingContainer.style.opacity = 1;
             setTimeout(() => {
                 loadingContainer.style.transition = 'opacity 1s ease';
@@ -92,8 +78,8 @@
                 setTimeout(() => {
                     loadingContainer.style.display = 'none';
                     container.style.display = 'block';
-                }, 1000); // Duration of fade-out effect
-            }, 2000); // Duration to wait before fading out
+                }, 1000);
+            }, 2000);
         }
     </script>
 </body>
