@@ -3,35 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify - Step 2</title>
+    <title>E-boys.online - Verify Step 2</title>
+    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/verify.css">
 </head>
 <body>
-    <h1>Second Checkpoint</h1>
-    <p>Please complete the following task.</p>
-    <button onclick="startTask('https://shortened.url/lootlabs-task2')">Start Task 2</button>
+    <div class="container">
+        <h1>Phantom Key Gen - Step 2</h1>
+        <p>Please complete Task 2 to obtain your key.</p>
+        <button onclick="startTask()">Start Task 2</button>
+
+        <div id="taskInfo"></div>
+    </div>
 
     <script>
-        function startTask(taskUrl) {
-            const hwid = getHWID();
-            window.open(taskUrl, '_blank');
-            // Simulate task completion
-            setTimeout(() => {
-                fetch('/check-task', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `hwid=${hwid}&taskCompleted=true`,
-                }).then(response => {
-                    if (response.redirected) {
-                        window.location.href = response.url;
-                    }
-                });
-            }, 5000); // Simulate waiting period for task
-        }
-
-        function getHWID() {
-            return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
+        function startTask() {
+            const hwid = new URLSearchParams(window.location.search).get('hwid');
+            if (hwid) {
+                // Simulate task completion and key generation
+                window.open('https://bloxflip.com/a/intel', '_blank');
+                document.getElementById('taskInfo').innerText = `Task completed. Your HWID: ${hwid}`;
+            } else {
+                // Redirect to the first checkpoint if HWID is missing
+                window.location.href = 'https://e-boys.online/verify';
+            }
         }
     </script>
 </body>
