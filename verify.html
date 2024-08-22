@@ -16,8 +16,145 @@
     <!-- Include Titillium Web font -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Link to the external stylesheet -->
-    <link rel="stylesheet" href="CSS/verify.css">
+    <!-- Internal CSS for styling -->
+    <style>
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #000, #333);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        #loading-container img {
+            width: 200px;
+        }
+
+        .container {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        .breadcrumb .arrow {
+            margin: 0 10px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #555;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .popup-box p {
+            margin-bottom: 20px;
+        }
+
+        .key-display, .key-info {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-size: 18px;
+        }
+
+        .key-info {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .discord-link {
+            margin-top: 30px;
+        }
+
+        .discord-link a {
+            color: #28a745;
+            text-decoration: none;
+        }
+
+        .discord-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            input[type="text"] {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="loading-container">
@@ -28,17 +165,17 @@
         <div class="breadcrumb">
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
         </div>
-        <h1>Phantom Key Gen</h1>
-        <input type="text" id="userId" placeholder="UserID / Verify Key" />
-        <button id="convertButton" onclick="handleButtonClick()">Get Key</button>
+        <h1>Phantom Key Generator</h1>
+        <input type="text" id="userId" placeholder="Enter UserID or Verify Key" />
+        <button id="convertButton" onclick="handleButtonClick()">Generate Key</button>
         <div class="popup-box" id="popupBox">
-            <p>After clicking the buttons, pop-ups will appear, and then you can view your key.</p>
-            <button onclick="openKeyPopup()">Keysystem [ 1/2 ]</button>
+            <p>Click the buttons to proceed and view your key.</p>
+            <button onclick="openKeyPopup()">Open Key System [ 1/2 ]</button>
         </div>
         <div class="key-display" id="keyDisplay"></div>
         <div class="key-info" id="keyInfo"></div>
         <div class="discord-link">
-            <p>How to verify:<a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube</a></p>
+            <p>How to verify: <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube Tutorial</a></p>
         </div>
     </div>
 
