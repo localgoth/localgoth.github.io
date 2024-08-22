@@ -45,7 +45,7 @@
         <h1>Checkpoint 2</h1>
         <div id="popup1" class="popup">Pop-up 1: Loading...</div>
         <div id="popup2" class="popup" style="display: none;">Pop-up 2: Click to proceed</div>
-        <button class="button" id="proceedButton" style="display: none;" onclick="window.location.href='https://e-boys.online/Verify_Third_Checkpoint';">Proceed to Checkpoint 3</button>
+        <button class="button" id="proceedButton" style="display: none;" onclick="window.location.href='https://e-boys.online/Verify_Fourth_Checkpoint';">Proceed to Checkpoint 3</button>
     </div>
 
     <script>
