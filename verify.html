@@ -6,7 +6,36 @@
     <title>E-boys.online - Verify</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/verify.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: black;
+            color: white;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        .container {
+            display: none;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #loading-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+        }
+        #loading-container img {
+            max-width: 100px;
+        }
+        .breadcrumb, h1, p, input, button {
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div id="loading-container">
@@ -44,15 +73,27 @@
         }
 
         function handleButtonClick() {
-            // Existing key generation code
+            // Placeholder for your key generation logic
         }
 
         function openKeyPopup() {
-            // Existing key popup code
+            // Placeholder for popup logic
         }
 
         window.onload = function() {
-            // Existing onload code
+            const loadingContainer = document.getElementById('loading-container');
+            const container = document.querySelector('.container');
+
+            // Fade out loading screen and display content
+            loadingContainer.style.opacity = 1;
+            setTimeout(() => {
+                loadingContainer.style.transition = 'opacity 1s ease';
+                loadingContainer.style.opacity = 0;
+                setTimeout(() => {
+                    loadingContainer.style.display = 'none';
+                    container.style.display = 'block';
+                }, 1000); // Duration of fade-out effect
+            }, 2000); // Duration to wait before fading out
         }
     </script>
 </body>
