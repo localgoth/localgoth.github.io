@@ -4,30 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify - Step 1</title>
+</head>
+<body>
+    <h1>First Checkpoint</h1>
+    <p>Please complete the tasks via LootLabs to proceed.</p>
+    <button onclick="startTask('https://shortened.url/lootlabs-task')">Start Task 1</button>
+
     <script>
-        function checkTaskCompletion() {
+        function startTask(taskUrl) {
             const hwid = getHWID();
-            fetch('/check-task', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `hwid=${hwid}`,
-            }).then(response => {
-                if (response.redirected) {
-                    window.location.href = response.url;
-                }
-            });
+            window.open(taskUrl, '_blank');
+            // Simulate task completion
+            setTimeout(() => {
+                fetch('/check-task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `hwid=${hwid}&taskCompleted=true`,
+                }).then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    }
+                });
+            }, 15000); // Simulate waiting period for task
         }
 
         function getHWID() {
             return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
         }
     </script>
-</head>
-<body>
-    <h1>First Checkpoint</h1>
-    <p>Please complete the tasks via LootLabs to proceed.</p>
-    <button onclick="checkTaskCompletion()">Complete Tasks</button>
 </body>
 </html>
