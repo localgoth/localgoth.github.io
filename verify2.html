@@ -44,4 +44,48 @@
 
     <div class="container">
         <div class="breadcrumb">
-            <sp
+            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
+        </div>
+        <h1>Congratulations!</h1>
+        <p>You've completed the first task. Here is your key:</p>
+        <div class="key-display" id="keyDisplay"></div>
+        <div class="key-info" id="keyInfo"></div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const loadingContainer = document.getElementById('loading-container');
+            const container = document.querySelector('.container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const hwid = urlParams.get('hwid');
+            const checkpoint1Completed = localStorage.getItem('checkpoint1Completed');
+
+            if (!hwid || checkpoint1Completed !== 'true') {
+                // Redirect to the first checkpoint if no HWID is provided or checkpoint 1 wasn't completed
+                window.location.href = 'https://e-boys.online/verify';
+            } else {
+                // Display the key
+                const generatedKey = generateKeyFromHWID(hwid);
+                document.getElementById('keyDisplay').textContent = `KEY: ${generatedKey}`;
+                document.getElementById('keyInfo').textContent = 'Use this key to verify your account.';
+                localStorage.removeItem('checkpoint1Completed'); // Clear checkpoint flag
+            }
+
+            loadingContainer.style.opacity = 1;
+            setTimeout(() => {
+                loadingContainer.style.transition = 'opacity 1s ease';
+                loadingContainer.style.opacity = 0;
+                setTimeout(() => {
+                    loadingContainer.style.display = 'none';
+                    container.style.display = 'block';
+                }, 1000);
+            }, 2000);
+        }
+
+        function generateKeyFromHWID(hwid) {
+            // Simple key generation logic based on HWID
+            return hwid.split('').reverse().join('').slice(0, 16); // Example: reverse and truncate HWID
+        }
+    </script>
+</body>
+</html>
