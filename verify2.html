@@ -3,69 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-boys.online - Verify 2</title>
+    <title>E-boys.online - Verify Checkpoint 2</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
+
+    <!-- Open Graph meta tags for embedding -->
+    <meta property="og:title" content="Phantom | Key system - Checkpoint 2">
+    <meta property="og:description" content="Checkpoint 2 of the key system for Phantom. Phantom is a powerful Lua obfuscator designed to protect your scripts from unauthorized access and theft">
+    <meta property="og:image" content="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackgroundVerify.png?raw=true">
+    <meta property="og:url" content="https://E-boys.online/verify2">
+    <meta property="og:type" content="website">
+
+    <!-- Include Titillium Web font -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
-            font-family: 'Titillium Web', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-        }
-        #loading-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        #loading-container img {
-            max-width: 100px;
-        }
-        .breadcrumb {
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .breadcrumb .arrow {
-            color: #888;
-            margin: 0 5px;
-        }
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        .key-display {
-            font-size: 24px;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: linear-gradient(45deg, #ff6a00, #ee0979);
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .key-info {
-            font-size: 16px;
-            color: #ff6a00;
-        }
-    </style>
+
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="CSS/verify.css">
 </head>
 <body>
     <div id="loading-container">
@@ -76,42 +28,45 @@
         <div class="breadcrumb">
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
         </div>
-        <h1>Congratulations!</h1>
-        <p>You've completed the first task. Here is your key:</p>
+        <h1>Phantom Key Gen - Checkpoint 2</h1>
         <div class="key-display" id="keyDisplay"></div>
         <div class="key-info" id="keyInfo"></div>
+        <div class="discord-link">
+            <p>Need Help? <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank"> YouTube Guide</a></p>
+        </div>
     </div>
 
     <script>
         window.onload = function() {
-            const loadingContainer = document.getElementById('loading-container');
-            const container = document.querySelector('.container');
             const urlParams = new URLSearchParams(window.location.search);
             const hwid = urlParams.get('hwid');
-            const checkpoint1Completed = localStorage.getItem('checkpoint1Completed');
+            const loadingContainer = document.getElementById('loading-container');
+            const keyDisplay = document.getElementById('keyDisplay');
+            const keyInfo = document.getElementById('keyInfo');
 
-            if (!hwid || checkpoint1Completed !== 'true') {
-                window.location.href = 'https://e-boys.online/verify';
-            } else {
-                const generatedKey = generateKeyFromHWID(hwid);
-                document.getElementById('keyDisplay').textContent = `KEY: ${generatedKey}`;
-                document.getElementById('keyInfo').textContent = 'Use this key to proceed to the next checkpoint.';
+            // Fade in the loading image
+            loadingContainer.style.opacity = 1;
 
-                loadingContainer.style.opacity = 1;
+            // Wait for 3 seconds, then fade out and show the main content
+            setTimeout(() => {
+                loadingContainer.style.opacity = 0;
                 setTimeout(() => {
-                    loadingContainer.style.transition = 'opacity 1s ease';
-                    loadingContainer.style.opacity = 0;
-                    setTimeout(() => {
-                        loadingContainer.style.display = 'none';
-                        container.style.display = 'block';
-                    }, 1000);
-                }, 2000);
-            }
-        }
+                    loadingContainer.style.display = 'none';
+                    document.querySelector('.container').style.display = 'block';
+                }, 1000); // Duration of fade-out effect
+            }, 3000);
 
-        function generateKeyFromHWID(hwid) {
-            return btoa(hwid).slice(0, 16).toUpperCase();
-        }
+            if (!hwid) {
+                // Redirect back to Verify1 if HWID is missing
+                window.location.href = "https://e-boys.online/verify";
+            } else {
+                // User has successfully completed checkpoint 1 and Lootlabs task
+                keyDisplay.textContent = `KEY: [Generated Key]`;
+                keyInfo.textContent = "Congratulations! You have successfully completed the verification process. Here is your key: [Generated Key]";
+                keyDisplay.style.display = 'block';
+                keyInfo.style.display = 'block';
+            }
+        };
     </script>
 </body>
 </html>
