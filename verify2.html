@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom | Key System Checkpoint 2</title>
+    <title>Phantom | Key</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -50,15 +50,19 @@
             font-size: 36px;
             margin-bottom: 20px;
         }
-        #key-display {
-            margin-bottom: 20px;
+        #key-container {
+            margin: 20px 0;
             padding: 10px;
-            background: #111;
+            background: #222;
             border-radius: 5px;
-            word-wrap: break-word;
-            text-align: left;
-            font-size: 14px;
-            line-height: 1.5;
+            word-break: break-all;
+        }
+        #timer-bar {
+            margin-top: 20px;
+            height: 20px;
+            background-color: green;
+            border-radius: 10px;
+            transition: width 1s linear;
         }
         button {
             padding: 10px 20px;
@@ -74,9 +78,6 @@
         button:hover {
             transform: scale(1.05);
             background: linear-gradient(45deg, #ff6a00, #ff2a6d);
-        }
-        #copy-button {
-            margin-top: 10px;
         }
         .discord-link {
             margin-top: 20px;
@@ -101,44 +102,59 @@
 
     <div class="container">
         <div class="breadcrumb">
-            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify</span>
+            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
         </div>
-        <h1>Phantom Key Gen - Checkpoint 2</h1>
-        <div id="key-display">Generating your key...</div>
-        <button id="copy-button" onclick="copyKey()">Copy Key</button>
+        <h1>Phantom Key</h1>
+        <div id="key-container"></div>
+        <button onclick="copyKey()">Copy Key</button>
+        <div id="timer-bar"></div>
         <div class="discord-link">
-            <p>How to verify: <a href="https://www.youtube.com/watch?v=iAe8vGwZaJA&ab_channel=BloxLose" target="_blank">Watch on YouTube</a></p>
+            <p>You have 24 hours until the key is invalid!</p>
         </div>
     </div>
 
     <script>
-        function generateRandomKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let key = '';
-            for (let i = 0; i < 16; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-                if ((i + 1) % 4 === 0 && i !== 15) key += '-'; // Adds a dash after every 4 characters
-            }
-            return key;
+        function copyKey() {
+            const key = document.getElementById('key-container').textContent;
+            navigator.clipboard.writeText(key).then(() => {
+                alert('Key copied to clipboard!');
+            });
         }
 
-        function copyKey() {
-            const keyDisplay = document.getElementById('key-display');
-            const textArea = document.createElement('textarea');
-            textArea.value = keyDisplay.innerText;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            alert('Key copied to clipboard!');
+        function startTimer() {
+            const timerBar = document.getElementById('timer-bar');
+            timerBar.style.width = '100%';
+            setTimeout(() => {
+                timerBar.style.transition = 'width 86400s linear';
+                timerBar.style.width = '0%';
+            }, 100);
+        }
+
+        function validateHWID() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hwid = urlParams.get('hwid');
+            if (!localStorage.getItem('checkpoint1Completed') || !hwid || hwid !== localStorage.getItem('hwid')) {
+                window.location.href = '/verify';
+            }
+        }
+
+        function generateKey(hwid) {
+            const baseKey = btoa(hwid + Date.now().toString());
+            return baseKey.substring(0, 8) + '-' + baseKey.substring(8, 16) + '-' + baseKey.substring(16, 24);
         }
 
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hwid = urlParams.get('hwid');
+            validateHWID();
+
             const loadingContainer = document.getElementById('loading-container');
             const container = document.querySelector('.container');
-            const keyDisplay = document.getElementById('key-display');
+            const keyContainer = document.getElementById('key-container');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const hwid = urlParams.get('hwid');
+
+            const key = generateKey(hwid);
+            keyContainer.textContent = key;
 
             loadingContainer.style.opacity = 1;
             setTimeout(() => {
@@ -147,17 +163,10 @@
                 setTimeout(() => {
                     loadingContainer.style.display = 'none';
                     container.style.display = 'block';
-
-                    // Display generated key
-                    const generatedKey = generateRandomKey();
-                    keyDisplay.innerText = `KEY: ${generatedKey}`;
+                    startTimer();
                 }, 1000);
             }, 2000);
-
-            if (!hwid) {
-                window.location.href = "https://e-boys.online/verify";
-            }
-        };
+        }
     </script>
 </body>
 </html>
