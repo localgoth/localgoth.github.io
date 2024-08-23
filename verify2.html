@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom | Key</title>
+    <title>Phantom | Key Verification</title>
     <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -50,19 +50,27 @@
             font-size: 36px;
             margin-bottom: 20px;
         }
-        #key-container {
-            margin: 20px 0;
+        .key-display {
+            margin-bottom: 20px;
+            font-size: 24px;
+            word-wrap: break-word;
+            border: 1px solid #fff;
             padding: 10px;
-            background: #222;
-            border-radius: 5px;
-            word-break: break-all;
-        }
-        #timer-bar {
-            margin-top: 20px;
-            height: 20px;
-            background-color: green;
             border-radius: 10px;
-            transition: width 1s linear;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .timer-bar {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #444;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .timer-bar-inner {
+            height: 10px;
+            background-color: #00ff00;
+            width: 100%;
+            transition: width 24h linear;
         }
         button {
             padding: 10px 20px;
@@ -102,59 +110,65 @@
 
     <div class="container">
         <div class="breadcrumb">
-            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
+            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Verify2</span>
         </div>
-        <h1>Phantom Key</h1>
-        <div id="key-container"></div>
+        <h1>Your Key</h1>
+        <div id="key-display" class="key-display"></div>
         <button onclick="copyKey()">Copy Key</button>
-        <div id="timer-bar"></div>
+        <div class="timer-bar">
+            <div id="timer-bar-inner" class="timer-bar-inner"></div>
+        </div>
+        <p>You have 24 hours until the key is invalid!</p>
         <div class="discord-link">
-            <p>You have 24 hours until the key is invalid!</p>
+            <p>Need help? <a href="https://discord.gg/yourdiscordlink" target="_blank">Join our Discord</a></p>
         </div>
     </div>
 
     <script>
+        function getHWID() {
+            return navigator.hardwareConcurrency.toString() + "-" + new Date().getTime();
+        }
+
+        function generateKey(hwid) {
+            return hwid + "-" + Math.random().toString(36).substr(2, 16).toUpperCase();
+        }
+
+        function verifyAccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hwid = urlParams.get('hwid');
+            const checkpoint1Completed = localStorage.getItem('checkpoint1Completed');
+
+            if (!checkpoint1Completed || !hwid) {
+                alert("Access denied. You must complete the tasks first.");
+                window.location.href = "/verify";
+                return false;
+            }
+
+            const generatedKey = generateKey(hwid);
+            document.getElementById('key-display').innerText = generatedKey;
+            localStorage.setItem('generatedKey', generatedKey);
+            localStorage.setItem('keyGeneratedTime', Date.now());
+            return true;
+        }
+
         function copyKey() {
-            const key = document.getElementById('key-container').textContent;
-            navigator.clipboard.writeText(key).then(() => {
-                alert('Key copied to clipboard!');
+            const keyText = document.getElementById('key-display').innerText.replace('KEY: ', '');
+            navigator.clipboard.writeText(keyText).then(() => {
+                alert("Key copied to clipboard!");
             });
         }
 
         function startTimer() {
-            const timerBar = document.getElementById('timer-bar');
-            timerBar.style.width = '100%';
+            const timerBarInner = document.getElementById('timer-bar-inner');
+            timerBarInner.style.width = '100%';
             setTimeout(() => {
-                timerBar.style.transition = 'width 86400s linear';
-                timerBar.style.width = '0%';
-            }, 100);
-        }
-
-        function validateHWID() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hwid = urlParams.get('hwid');
-            if (!localStorage.getItem('checkpoint1Completed') || !hwid || hwid !== localStorage.getItem('hwid')) {
-                window.location.href = '/verify';
-            }
-        }
-
-        function generateKey(hwid) {
-            const baseKey = btoa(hwid + Date.now().toString());
-            return baseKey.substring(0, 8) + '-' + baseKey.substring(8, 16) + '-' + baseKey.substring(16, 24);
+                timerBarInner.style.width = '0';
+            }, 86400000); // 24 hours
         }
 
         window.onload = function() {
-            validateHWID();
-
             const loadingContainer = document.getElementById('loading-container');
             const container = document.querySelector('.container');
-            const keyContainer = document.getElementById('key-container');
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const hwid = urlParams.get('hwid');
-
-            const key = generateKey(hwid);
-            keyContainer.textContent = key;
 
             loadingContainer.style.opacity = 1;
             setTimeout(() => {
@@ -162,8 +176,10 @@
                 loadingContainer.style.opacity = 0;
                 setTimeout(() => {
                     loadingContainer.style.display = 'none';
-                    container.style.display = 'block';
-                    startTimer();
+                    if (verifyAccess()) {
+                        container.style.display = 'block';
+                        startTimer();
+                    }
                 }, 1000);
             }, 2000);
         }
