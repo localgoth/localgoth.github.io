@@ -83,7 +83,7 @@
         }
         .timer-bar-inner {
             height: 10px;
-            background-color: #00ff00;
+            background-color: #00ff00; /* Green color */
             width: 0;
             transition: width 24h linear;
         }
@@ -116,23 +116,9 @@
             color: #ff2a6d;
             border-bottom: 1px solid #ff2a6d;
         }
-        .footer {
-            background: #007bff;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
-            position: fixed;
-            bottom: 0;
-        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Phantom Key Verification</h1>
-    </div>
-
     <div id="loading-container">
         <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackground.png?raw=true" alt="Loading">
     </div>
@@ -141,8 +127,8 @@
         <div class="breadcrumb">
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
         </div>
-        <h1>Your Key</h1>
-        <div id="key-display" class="key-display"></div>
+        <h1>Phantom Key</h1>
+        <div id="key-display" class="key-display">Generating Key...</div>
         <button onclick="copyKey()">Copy Key</button>
         <div class="timer-bar">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
@@ -151,10 +137,6 @@
         <div class="discord-link">
             <p>Need help? <a href="https://discord.gg/ZFWR7ETVBf" target="_blank">Join our Discord</a></p>
         </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2024 Phantom. All rights reserved.
     </div>
 
     <script>
@@ -224,6 +206,8 @@
                         localStorage.setItem('keyGeneratedTime', Date.now());
                         container.style.display = 'block';
                         startTimer();
+                    } else {
+                        document.getElementById('key-display').innerText = 'Failed to generate key. Please try again.';
                     }
                 }, 1000);
             }, 2000);
