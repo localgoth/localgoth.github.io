@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom | Key</title>
-    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
+    <title>Phantom | Key Verification</title>
+    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg"> <!-- Update path if needed -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -15,8 +15,21 @@
             color: white;
             font-family: 'Titillium Web', sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+        }
+        .header {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
         }
         .container {
             text-align: center;
@@ -24,8 +37,8 @@
             background: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            display: none;
-            position: relative;
+            max-width: 500px;
+            width: 100%;
         }
         #loading-container {
             position: fixed;
@@ -71,7 +84,7 @@
         .timer-bar-inner {
             height: 10px;
             background-color: #00ff00;
-            width: 100%;
+            width: 0;
             transition: width 24h linear;
         }
         button {
@@ -103,9 +116,23 @@
             color: #ff2a6d;
             border-bottom: 1px solid #ff2a6d;
         }
+        .footer {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Phantom Key Verification</h1>
+    </div>
+
     <div id="loading-container">
         <img src="https://github.com/localgoth/localgoth.github.io/blob/main/src/LoadingBlackBackground.png?raw=true" alt="Loading">
     </div>
@@ -124,6 +151,10 @@
         <div class="discord-link">
             <p>Need help? <a href="https://discord.gg/ZFWR7ETVBf" target="_blank">Join our Discord</a></p>
         </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 Phantom. All rights reserved.
     </div>
 
     <script>
