@@ -40,6 +40,14 @@
         #loading-container img {
             max-width: 100px;
         }
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .breadcrumb .arrow {
+            color: #888;
+            margin: 0 5px;
+        }
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
@@ -63,7 +71,7 @@
         .timer-bar-inner {
             height: 10px;
             background-color: #00ff00;
-            width: 100%;
+            width: 0;
             transition: width 24h linear;
         }
         button {
@@ -103,8 +111,11 @@
     </div>
 
     <div class="container">
+        <div class="breadcrumb">
+            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
+        </div>
         <h1>Phantom Key</h1>
-        <div id="key-display" class="key-display">Generating Key...</div>
+        <div id="key-display" class="key-display"></div>
         <button onclick="copyKey()">Copy Key</button>
         <div class="timer-bar">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
