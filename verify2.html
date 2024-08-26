@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom | Key Verification</title>
-    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg"> <!-- Update path if needed -->
+    <title>Phantom Key Verification</title>
+    <link rel="icon" href="https://github.com/localgoth/localgoth.github.io/blob/main/Phantom%20bot.jpg?raw=true" type="image/jpg">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -15,21 +15,8 @@
             color: white;
             font-family: 'Titillium Web', sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-        }
-        .header {
-            width: 100%;
-            background: #007bff;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
+            align-items: center;
         }
         .container {
             text-align: center;
@@ -37,8 +24,8 @@
             background: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            max-width: 500px;
-            width: 100%;
+            display: none;
+            position: relative;
         }
         #loading-container {
             position: fixed;
@@ -52,14 +39,6 @@
         }
         #loading-container img {
             max-width: 100px;
-        }
-        .breadcrumb {
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .breadcrumb .arrow {
-            color: #888;
-            margin: 0 5px;
         }
         h1 {
             font-size: 36px;
@@ -83,8 +62,8 @@
         }
         .timer-bar-inner {
             height: 10px;
-            background-color: #00ff00; /* Green color */
-            width: 0;
+            background-color: #00ff00;
+            width: 100%;
             transition: width 24h linear;
         }
         button {
@@ -124,11 +103,8 @@
     </div>
 
     <div class="container">
-        <div class="breadcrumb">
-            <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
-        </div>
         <h1>Phantom Key</h1>
-        <div id="key-display" class="key-display">Generating Key...</div>
+        <div id="key-display" class="key-display">Generating key...</div>
         <button onclick="copyKey()">Copy Key</button>
         <div class="timer-bar">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
@@ -206,8 +182,6 @@
                         localStorage.setItem('keyGeneratedTime', Date.now());
                         container.style.display = 'block';
                         startTimer();
-                    } else {
-                        document.getElementById('key-display').innerText = 'Failed to generate key. Please try again.';
                     }
                 }, 1000);
             }, 2000);
