@@ -72,7 +72,7 @@
             height: 10px;
             background-color: #00ff00;
             width: 0;
-            transition: width 24h linear;
+            transition: width 1s linear;
         }
         button {
             padding: 10px 20px;
@@ -120,7 +120,7 @@
         <div class="timer-bar">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
         </div>
-        <p>You have 24 hours until the key is invalid!</p>
+        <p id="timer-message">You have 24 hours until the key is invalid!</p>
         <div class="discord-link">
             <p>Need help? <a href="https://discord.gg/ZFWR7ETVBf" target="_blank">Join our Discord</a></p>
         </div>
@@ -168,12 +168,27 @@
             });
         }
 
-        function startTimer() {
+        function startTimer(expirationTime) {
             const timerBarInner = document.getElementById('timer-bar-inner');
-            timerBarInner.style.width = '100%';
-            setTimeout(() => {
-                timerBarInner.style.width = '0';
-            }, 86400000); // 24 hours
+            const timerMessage = document.getElementById('timer-message');
+
+            const updateTimer = () => {
+                const now = Date.now();
+                const remaining = expirationTime - now;
+                
+                if (remaining <= 0) {
+                    timerBarInner.style.width = '0%';
+                    timerMessage.innerText = 'Key has expired!';
+                    return;
+                }
+
+                const percentage = (remaining / (24 * 60 * 60 * 1000)) * 100;
+                timerBarInner.style.width = `${percentage}%`;
+
+                setTimeout(updateTimer, 1000);
+            };
+
+            updateTimer();
         }
 
         window.onload = async function() {
@@ -190,9 +205,12 @@
                     if (key) {
                         document.getElementById('key-display').innerText = key;
                         localStorage.setItem('generatedKey', key);
-                        localStorage.setItem('keyGeneratedTime', Date.now());
+                        const generatedTime = Date.now();
+                        const expirationTime = generatedTime + 24 * 60 * 60 * 1000; // 24 hours from generation
+                        localStorage.setItem('keyGeneratedTime', generatedTime);
+                        localStorage.setItem('keyExpirationTime', expirationTime);
                         container.style.display = 'block';
-                        startTimer();
+                        startTimer(expirationTime);
                     }
                 }, 1000);
             }, 2000);
