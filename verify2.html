@@ -211,6 +211,8 @@
                         localStorage.setItem('keyExpirationTime', expirationTime);
                         container.style.display = 'block';
                         startTimer(expirationTime);
+                    } else {
+                        window.location.href = "/verify";  // Redirect if key generation fails
                     }
                 }, 1000);
             }, 2000);
