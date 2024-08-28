@@ -213,7 +213,30 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('loading-container').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const hwid = urlParams.get('hwid');
+
+            if (hwid) {
+                validateHWID(hwid);
+            }
         });
+
+        async function validateHWID(hwid) {
+            try {
+                const response = await fetch(`/verify2?hwid=${hwid}`);
+                const data = await response.text();
+                if (response.ok && data.includes("HWID verified successfully")) {
+                    document.getElementById('error-message').classList.add('hidden');
+                    document.getElementById('continue-btn').classList.remove('hidden');
+                } else {
+                    document.getElementById('error-message').innerText = 'HWID validation failed. Please try again.';
+                    document.getElementById('error-message').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('HWID validation error:', error);
+            }
+        }
     </script>
 </body>
 </html>
