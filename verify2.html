@@ -27,19 +27,6 @@
             display: none;
             position: relative;
         }
-        #loading-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-        }
-        #loading-container img {
-            max-width: 100px;
-        }
         .breadcrumb {
             margin-bottom: 20px;
             font-size: 14px;
@@ -89,19 +76,22 @@
             transform: scale(1.05);
             background: linear-gradient(45deg, #ff6a00, #ff2a6d);
         }
-        .discord-link {
-            margin-top: 20px;
+        #loading-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        #loading-container img {
+            max-width: 100px;
+        }
+        #timer-message {
+            margin-top: 10px;
             font-size: 14px;
-        }
-        .discord-link a {
-            color: #ff6a00;
-            text-decoration: none;
-            border-bottom: 1px solid #ff6a00;
-            transition: color 0.3s ease;
-        }
-        .discord-link a:hover {
-            color: #ff2a6d;
-            border-bottom: 1px solid #ff2a6d;
         }
     </style>
 </head>
@@ -127,40 +117,26 @@
     </div>
 
     <script>
-        async function fetchKey() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hwid = urlParams.get('hwid');
-            const checkpoint1Completed = localStorage.getItem('checkpoint1Completed');
-
-            if (!checkpoint1Completed || !hwid) {
-                alert("Access denied. You must complete the tasks first.");
-                window.location.href = "/verify";
-                return null;
+        // Function to generate a random key
+        function generateKey() {
+            let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = '';
+            for (let i = 0; i < 12; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-
-            try {
-                const response = await fetch('/generate_key', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ hwid })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    return result.key;
-                } else {
-                    alert('Error generating key: ' + result.error);
-                    return null;
-                }
-            } catch (error) {
-                alert('An error occurred while generating your key.');
-                return null;
-            }
+            return key;
         }
 
+        // Simple XOR encryption function (for demonstration)
+        function encryptKey(key, secret) {
+            let encryptedKey = '';
+            for (let i = 0; i < key.length; i++) {
+                encryptedKey += String.fromCharCode(key.charCodeAt(i) ^ secret.charCodeAt(i % secret.length));
+            }
+            return btoa(encryptedKey); // Base64 encode the result
+        }
+
+        // Function to copy the key to the clipboard
         function copyKey() {
             const keyText = document.getElementById('key-display').innerText;
             navigator.clipboard.writeText(keyText).then(() => {
@@ -168,6 +144,17 @@
             });
         }
 
+        // Function to show the loader
+        function showLoader() {
+            document.getElementById('loading-container').style.display = 'flex';
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            document.getElementById('loading-container').style.display = 'none';
+        }
+
+        // Function to start the timer
         function startTimer(expirationTime) {
             const timerBarInner = document.getElementById('timer-bar-inner');
             const timerMessage = document.getElementById('timer-message');
@@ -191,31 +178,29 @@
             updateTimer();
         }
 
+        // On page load
         window.onload = async function() {
-            const loadingContainer = document.getElementById('loading-container');
-            const container = document.querySelector('.container');
+            const secret = 'supersecret'; // The secret used for encryption
+            const key = generateKey(); // Generate a random key
+            const encryptedKey = encryptKey(key, secret); // Encrypt the key
 
-            loadingContainer.style.opacity = 1;
+            showLoader();
+
             setTimeout(() => {
-                loadingContainer.style.transition = 'opacity 1s ease';
-                loadingContainer.style.opacity = 0;
-                setTimeout(async () => {
-                    loadingContainer.style.display = 'none';
-                    const key = await fetchKey();
-                    if (key) {
-                        document.getElementById('key-display').innerText = key;
-                        localStorage.setItem('generatedKey', key);
-                        const generatedTime = Date.now();
-                        const expirationTime = generatedTime + 24 * 60 * 60 * 1000; // 24 hours from generation
-                        localStorage.setItem('keyGeneratedTime', generatedTime);
-                        localStorage.setItem('keyExpirationTime', expirationTime);
-                        container.style.display = 'block';
-                        startTimer(expirationTime);
-                    } else {
-                        window.location.href = "/verify";  // Redirect if key generation fails
-                    }
-                }, 1000);
-            }, 2000);
+                hideLoader();
+                document.getElementById('key-display').innerText = encryptedKey; // Display the encrypted key
+
+                // Save key and expiration time to local storage
+                const generatedTime = Date.now();
+                const expirationTime = generatedTime + 24 * 60 * 60 * 1000; // 24 hours from generation
+                localStorage.setItem('generatedKey', encryptedKey);
+                localStorage.setItem('keyGeneratedTime', generatedTime);
+                localStorage.setItem('keyExpirationTime', expirationTime);
+
+                // Show the container and start the timer
+                document.querySelector('.container').style.display = 'block';
+                startTimer(expirationTime);
+            }, 2000); // Simulate loading time
         }
     </script>
 </body>
