@@ -105,21 +105,21 @@
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
         </div>
         <h1>Phantom Key</h1>
+        <input type="text" id="user-id" placeholder="Enter your User ID">
+        <button onclick="fetchKey()">Generate Key</button>
         <div id="key-display" class="key-display"></div>
-        <button onclick="copyKey()">Copy Key</button>
         <div class="timer-bar">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
         </div>
-        <p id="timer-message">You have 24 hours until the key is invalid!</p>
+        <p id="timer-message">You have 10 minutes until the key is invalid!</p>
         <div class="discord-link">
             <p>Need help? <a href="https://discord.gg/ZFWR7ETVBf" target="_blank">Join our Discord</a></p>
         </div>
     </div>
 
     <script>
-        // Function to fetch a new key from the backend
         async function fetchKey() {
-            const userId = 'user123'; // Replace with the actual user ID or identifier
+            const userId = document.getElementById('user-id').value; // Get user ID from input field
             try {
                 const response = await fetch(`/generate_key?user_id=${userId}`, { method: 'POST' });
                 const data = await response.json();
@@ -135,25 +135,6 @@
             }
         }
 
-        // Function to copy the key to the clipboard
-        function copyKey() {
-            const keyText = document.getElementById('key-display').innerText;
-            navigator.clipboard.writeText(keyText).then(() => {
-                alert("Key copied to clipboard!");
-            });
-        }
-
-        // Function to show the loader
-        function showLoader() {
-            document.getElementById('loading-container').style.display = 'flex';
-        }
-
-        // Function to hide the loader
-        function hideLoader() {
-            document.getElementById('loading-container').style.display = 'none';
-        }
-
-        // Function to start the timer
         function startTimer(expirationTime) {
             const timerBarInner = document.getElementById('timer-bar-inner');
             const timerMessage = document.getElementById('timer-message');
@@ -161,14 +142,14 @@
             const updateTimer = () => {
                 const now = Date.now();
                 const remaining = expirationTime - now;
-
+                
                 if (remaining <= 0) {
                     timerBarInner.style.width = '0%';
                     timerMessage.innerText = 'Key has expired!';
                     return;
                 }
 
-                const percentage = (remaining / (10 * 60 * 1000)) * 100; // 10 minutes
+                const percentage = (remaining / (10 * 60 * 1000)) * 100; // 10 minutes in milliseconds
                 timerBarInner.style.width = `${percentage}%`;
 
                 setTimeout(updateTimer, 1000);
@@ -177,11 +158,9 @@
             updateTimer();
         }
 
-        // On page load
         window.onload = function() {
-            showLoader();
-            fetchKey().finally(hideLoader);
-            document.querySelector('.container').style.display = 'block'; // Show container after loading
+            document.getElementById('loading-container').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
         }
     </script>
 </body>
