@@ -39,6 +39,17 @@
             font-size: 36px;
             margin-bottom: 20px;
         }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
         .key-display {
             margin-bottom: 20px;
             font-size: 24px;
@@ -71,6 +82,7 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            margin: 5px;
         }
         button:hover {
             transform: scale(1.05);
@@ -93,6 +105,14 @@
             margin-top: 10px;
             font-size: 14px;
         }
+        .error-message {
+            color: #ff6a00;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -105,63 +125,95 @@
             <span class="gray">Phantom</span> <span class="arrow">&gt;</span> <span class="white">Key</span>
         </div>
         <h1>Phantom Key</h1>
-        <input type="text" id="user-id" placeholder="Enter your User ID">
-        <button onclick="fetchKey()">Generate Key</button>
-        <div id="key-display" class="key-display"></div>
-        <div class="timer-bar">
+        <input type="text" id="user-id" placeholder="Enter your User ID or Username">
+        <button id="continue-btn" onclick="validateUser()">Continue</button>
+        <div id="error-message" class="error-message hidden"></div>
+        <button id="get-key-btn" class="hidden" onclick="fetchKey()">Get Key</button>
+        <div id="key-display" class="key-display hidden"></div>
+        <div class="timer-bar hidden">
             <div id="timer-bar-inner" class="timer-bar-inner"></div>
         </div>
-        <p id="timer-message">You have 10 minutes until the key is invalid!</p>
+        <p id="timer-message" class="hidden">You have 24 hours until the key is invalid!</p>
         <div class="discord-link">
             <p>Need help? <a href="https://discord.gg/ZFWR7ETVBf" target="_blank">Join our Discord</a></p>
         </div>
     </div>
 
     <script>
-        async function fetchKey() {
-            const userId = document.getElementById('user-id').value; // Get user ID from input field
+        async function validateUser() {
+            const userId = document.getElementById('user-id').value;
             try {
-                const response = await fetch(`/generate_key?user_id=${userId}`, { method: 'POST' });
+                const response = await fetch('/validate_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id: userId })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('error-message').classList.add('hidden');
+                    document.getElementById('continue-btn').classList.add('hidden');
+                    document.getElementById('get-key-btn').classList.remove('hidden');
+                } else {
+                    document.getElementById('error-message').innerText = data.message;
+                    document.getElementById('error-message').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Validation error:', error);
+            }
+        }
+
+        async function fetchKey() {
+            const userId = document.getElementById('user-id').value;
+            try {
+                const response = await fetch('/generate_key', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id: userId })
+                });
                 const data = await response.json();
                 if (response.ok) {
                     document.getElementById('key-display').innerText = data.key;
                     const expirationTime = new Date(data.expiration).getTime();
+                    document.getElementById('key-display').classList.remove('hidden');
+                    document.getElementById('timer-bar-inner').classList.remove('hidden');
+                    document.getElementById('timer-message').classList.remove('hidden');
                     startTimer(expirationTime);
                 } else {
+                    document.getElementById('key-display').classList.add('hidden');
+                    document.getElementById('timer-bar-inner').classList.add('hidden');
+                    document.getElementById('timer-message').classList.add('hidden');
                     console.error('Error fetching key:', data.message);
                 }
             } catch (error) {
-                console.error('Fetch error:', error);
+                console.error('Key generation error:', error);
             }
         }
 
         function startTimer(expirationTime) {
             const timerBarInner = document.getElementById('timer-bar-inner');
-            const timerMessage = document.getElementById('timer-message');
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = expirationTime - now;
 
-            const updateTimer = () => {
-                const now = Date.now();
-                const remaining = expirationTime - now;
-                
-                if (remaining <= 0) {
+                if (distance < 0) {
+                    clearInterval(interval);
                     timerBarInner.style.width = '0%';
-                    timerMessage.innerText = 'Key has expired!';
-                    return;
+                    document.getElementById('timer-message').innerText = 'Your key has expired!';
+                } else {
+                    const percentage = ((expirationTime - now) / (24 * 60 * 60 * 1000)) * 100;
+                    timerBarInner.style.width = percentage + '%';
                 }
-
-                const percentage = (remaining / (10 * 60 * 1000)) * 100; // 10 minutes in milliseconds
-                timerBarInner.style.width = `${percentage}%`;
-
-                setTimeout(updateTimer, 1000);
-            };
-
-            updateTimer();
+            }, 1000);
         }
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('loading-container').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
-        }
+        });
     </script>
 </body>
 </html>
