@@ -117,23 +117,22 @@
     </div>
 
     <script>
-        // Function to generate a random key
-        function generateKey() {
-            let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let key = '';
-            for (let i = 0; i < 12; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
+        // Function to fetch a new key from the backend
+        async function fetchKey() {
+            const userId = 'user123'; // Replace with the actual user ID or identifier
+            try {
+                const response = await fetch(`/generate_key?user_id=${userId}`, { method: 'POST' });
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('key-display').innerText = data.key;
+                    const expirationTime = new Date(data.expiration).getTime();
+                    startTimer(expirationTime);
+                } else {
+                    console.error('Error fetching key:', data.message);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
             }
-            return key;
-        }
-
-        // Simple XOR encryption function (for demonstration)
-        function encryptKey(key, secret) {
-            let encryptedKey = '';
-            for (let i = 0; i < key.length; i++) {
-                encryptedKey += String.fromCharCode(key.charCodeAt(i) ^ secret.charCodeAt(i % secret.length));
-            }
-            return btoa(encryptedKey); // Base64 encode the result
         }
 
         // Function to copy the key to the clipboard
@@ -162,14 +161,14 @@
             const updateTimer = () => {
                 const now = Date.now();
                 const remaining = expirationTime - now;
-                
+
                 if (remaining <= 0) {
                     timerBarInner.style.width = '0%';
                     timerMessage.innerText = 'Key has expired!';
                     return;
                 }
 
-                const percentage = (remaining / (24 * 60 * 60 * 1000)) * 100;
+                const percentage = (remaining / (10 * 60 * 1000)) * 100; // 10 minutes
                 timerBarInner.style.width = `${percentage}%`;
 
                 setTimeout(updateTimer, 1000);
@@ -179,28 +178,10 @@
         }
 
         // On page load
-        window.onload = async function() {
-            const secret = 'supersecret'; // The secret used for encryption
-            const key = generateKey(); // Generate a random key
-            const encryptedKey = encryptKey(key, secret); // Encrypt the key
-
+        window.onload = function() {
             showLoader();
-
-            setTimeout(() => {
-                hideLoader();
-                document.getElementById('key-display').innerText = encryptedKey; // Display the encrypted key
-
-                // Save key and expiration time to local storage
-                const generatedTime = Date.now();
-                const expirationTime = generatedTime + 24 * 60 * 60 * 1000; // 24 hours from generation
-                localStorage.setItem('generatedKey', encryptedKey);
-                localStorage.setItem('keyGeneratedTime', generatedTime);
-                localStorage.setItem('keyExpirationTime', expirationTime);
-
-                // Show the container and start the timer
-                document.querySelector('.container').style.display = 'block';
-                startTimer(expirationTime);
-            }, 2000); // Simulate loading time
+            fetchKey().finally(hideLoader);
+            document.querySelector('.container').style.display = 'block'; // Show container after loading
         }
     </script>
 </body>
