@@ -140,15 +140,38 @@
     </div>
 
     <script>
+        const digitToChar = {
+            '0': 'A', '1': 'O', '2': 'G', '3': 'H',
+            '4': 'X', '5': 'R', '6': '8', '7': '4',
+            '8': '6', '9': '0'
+        };
+
+        const charToDigit = {
+            'A': '0', 'O': '1', 'G': '2', 'H': '3',
+            'X': '4', 'R': '5', '8': '6', '4': '7',
+            '6': '8', '0': '9'
+        };
+
+        // Obfuscation function
+        function obfuscateID(id) {
+            return id.split('').map(digit => digitToChar[digit] || digit).join('');
+        }
+
+        // De-obfuscation function (for bot-side use)
+        function deobfuscateID(obfuscated) {
+            return obfuscated.split('').map(char => charToDigit[char] || char).join('');
+        }
+
         async function validateUser() {
             const userId = document.getElementById('user-id').value;
+            const obfuscatedId = obfuscateID(userId); // Obfuscate here
             try {
                 const response = await fetch('/validate_user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_id: userId })
+                    body: JSON.stringify({ user_id: obfuscatedId }) // Send obfuscated ID
                 });
                 const data = await response.json();
                 if (response.ok) {
@@ -166,13 +189,14 @@
 
         async function fetchKey() {
             const userId = document.getElementById('user-id').value;
+            const obfuscatedId = obfuscateID(userId); // Obfuscate before sending
             try {
                 const response = await fetch('/generate_key', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_id: userId })
+                    body: JSON.stringify({ user_id: obfuscatedId }) // Send obfuscated ID
                 });
                 const data = await response.json();
                 if (response.ok) {
