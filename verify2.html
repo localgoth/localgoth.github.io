@@ -140,63 +140,65 @@
     </div>
 
     <script>
+        // Define the mapping from digits to characters
         const digitToChar = {
-            '0': 'A', '1': 'O', '2': 'G', '3': 'H',
-            '4': 'X', '5': 'R', '6': '8', '7': '4',
-            '8': '6', '9': '0'
+            '0': 'A', '1': 'B', '2': 'C', '3': 'D',
+            '4': 'E', '5': 'F', '6': 'G', '7': 'H',
+            '8': 'I', '9': 'J'
         };
 
-        const charToDigit = {
-            'A': '0', 'O': '1', 'G': '2', 'H': '3',
-            'X': '4', 'R': '5', '8': '6', '4': '7',
-            '6': '8', '0': '9'
-        };
-
-        // Obfuscation function
-        function obfuscateID(id) {
-            return id.split('').map(digit => digitToChar[digit] || digit).join('');
+        // Function to map user ID based on the digitToChar mapping
+        function mapUserId(userId) {
+            let mappedId = '';
+            for (let i = 0; i < userId.length; i++) {
+                const digit = userId[i];
+                mappedId += digitToChar[digit] || digit; // Use mapping or leave as is if not found
+            }
+            return mappedId;
         }
 
-        // De-obfuscation function (for bot-side use)
-        function deobfuscateID(obfuscated) {
-            return obfuscated.split('').map(char => charToDigit[char] || char).join('');
-        }
-
+        // Function to validate the user
         async function validateUser() {
             const userId = document.getElementById('user-id').value;
-            const obfuscatedId = obfuscateID(userId); // Obfuscate here
-            try {
-                const response = await fetch('/validate_user', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ user_id: obfuscatedId }) // Send obfuscated ID
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    document.getElementById('error-message').classList.add('hidden');
-                    document.getElementById('continue-btn').classList.add('hidden');
-                    document.getElementById('get-key-btn').classList.remove('hidden');
-                } else {
-                    document.getElementById('error-message').innerText = data.message;
-                    document.getElementById('error-message').classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('Validation error:', error);
+
+            // Check if the userId is valid and map it
+            if (!userId) {
+                document.getElementById('error-message').innerText = 'Please enter a User ID.';
+                document.getElementById('error-message').classList.remove('hidden');
+                return;
+            }
+
+            // Map the User ID
+            const mappedId = mapUserId(userId);
+            console.log('Original User ID:', userId);
+            console.log('Mapped User ID:', mappedId);
+
+            // Show the mapped ID in the key-display area for verification
+            document.getElementById('key-display').innerText = `Mapped ID: ${mappedId}`;
+            document.getElementById('key-display').classList.remove('hidden');
+            
+            // Simulate server-side validation (replace this with an actual server request in production)
+            const isValid = true; // This should be the result of server-side validation
+
+            if (isValid) {
+                document.getElementById('error-message').classList.add('hidden');
+                document.getElementById('continue-btn').classList.add('hidden');
+                document.getElementById('get-key-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('error-message').innerText = 'Invalid User ID. Please try again.';
+                document.getElementById('error-message').classList.remove('hidden');
             }
         }
 
         async function fetchKey() {
             const userId = document.getElementById('user-id').value;
-            const obfuscatedId = obfuscateID(userId); // Obfuscate before sending
             try {
                 const response = await fetch('/generate_key', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_id: obfuscatedId }) // Send obfuscated ID
+                    body: JSON.stringify({ user_id: userId })
                 });
                 const data = await response.json();
                 if (response.ok) {
@@ -221,46 +223,3 @@
             const timerBarInner = document.getElementById('timer-bar-inner');
             const interval = setInterval(() => {
                 const now = new Date().getTime();
-                const distance = expirationTime - now;
-
-                if (distance < 0) {
-                    clearInterval(interval);
-                    timerBarInner.style.width = '0%';
-                    document.getElementById('timer-message').innerText = 'Your key has expired!';
-                } else {
-                    const percentage = ((expirationTime - now) / (24 * 60 * 60 * 1000)) * 100;
-                    timerBarInner.style.width = percentage + '%';
-                }
-            }, 1000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('loading-container').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const hwid = urlParams.get('hwid');
-
-            if (hwid) {
-                validateHWID(hwid);
-            }
-        });
-
-        async function validateHWID(hwid) {
-            try {
-                const response = await fetch(`/verify2?hwid=${hwid}`);
-                const data = await response.text();
-                if (response.ok && data.includes("HWID verified successfully")) {
-                    document.getElementById('error-message').classList.add('hidden');
-                    document.getElementById('continue-btn').classList.remove('hidden');
-                } else {
-                    document.getElementById('error-message').innerText = 'HWID validation failed. Please try again.';
-                    document.getElementById('error-message').classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('HWID validation error:', error);
-            }
-        }
-    </script>
-</body>
-</html>
